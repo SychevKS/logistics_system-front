@@ -25,7 +25,7 @@ export default function Home() {
                         <Link href="/invoices-sale" passHref>
                             <ALink underline="hover">Расходные</ALink>
                         </Link>
-                        <Link href="/invoices-in-out" passHref>
+                        <Link href="/invoices-transfer" passHref>
                             <ALink underline="hover">Акты приемки-передачи</ALink>
                         </Link>
                     </Box>
@@ -46,7 +46,7 @@ export default function Home() {
                     <Typography fontWeight={500}>Справочники</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <Link href="/workers" passHref>
-                            <ALink underline="hover">Работники</ALink>
+                            <ALink underline="hover">Сотрудники</ALink>
                         </Link>
                         <Link href="/divisions" passHref>
                             <ALink underline="hover">Подразделения</ALink>
