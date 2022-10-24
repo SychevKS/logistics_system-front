@@ -9,7 +9,8 @@ import AddingProcurementPlan from "./plan/adding/procurement"
 import SalesPlan from "./plan/view/sale"
 import ProcurementPlan from "./plan/view/procurement"
 
-import Documents from "./documents"
+import Invoices from "./invoices"
+import Plans from "./plans"
 
 export {
     Home,
@@ -19,5 +20,6 @@ export {
     AddingProcurementPlan,
     SalesPlan,
     ProcurementPlan,
-    Documents,
+    Invoices,
+    Plans,
 }

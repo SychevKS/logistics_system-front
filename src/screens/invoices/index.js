@@ -21,7 +21,7 @@ const documents = [
     { date: "12.01.2022", number: 1337 },
 ]
 
-export default function Documents() {
+export default function Invoices() {
     const router = useRouter()
 
     const [modal, setModal] = React.useState({ type: 0, isOpen: false })

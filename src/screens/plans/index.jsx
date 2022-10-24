@@ -83,7 +83,7 @@ const plans = [
     },
 ]
 
-export default function Home() {
+export default function Plans() {
     return (
         <Container
             maxWidth="md"
