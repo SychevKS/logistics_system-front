@@ -8,10 +8,10 @@ import { DivisionKind, DivisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 import { Title, Table } from "../components"
 
-export default function PurchaseInvoice() {
+export default function SaleInvoice() {
     const router = useRouter()
     const { id } = router.query
-    const { data, isLoading } = useData(id ? `${process.env.API_URL}purchase-invoice/${id}` : null)
+    const { data, isLoading } = useData(id ? `${process.env.API_URL}sales-invoice/${id}` : null)
 
     if (isLoading) {
         return
@@ -28,9 +28,9 @@ export default function PurchaseInvoice() {
             }}
         >
             <Title
-                title={`Приходная накладная номер ${data.number} от ${data.date}`}
+                title={`Расходная накладная номер ${data.number} от ${data.date}`}
                 subtitles={[
-                    `Поставщик: ${data.partner.name}`,
+                    `Покупатель: ${data.partner.name}`,
                     `Подразделение: ${
                         DivisionKind[inverseEnum(DivisionKindDTO)[data.division.kind]]
                     } № ${data.division.number}`,
