@@ -105,7 +105,10 @@ function Row({ row }) {
                                         {purchasePlans.data.map(plan => (
                                             <TableRow key={plan.id}>
                                                 <TableCell component="th" scope="row">
-                                                    <Link href="/procurement-plan/1" passHref>
+                                                    <Link
+                                                        href={`plan-purchases/${plan.id}`}
+                                                        passHref
+                                                    >
                                                         <Button
                                                             color="inherit"
                                                             variant="text"

@@ -11,6 +11,7 @@ import TransferInvoice from "./invoice/view/transfer"
 
 import Plans from "./plans"
 import SalesPlan from "./plan/view/sale"
+import PurchasesPlan from "./plan/view/purchases"
 
 import Workers from "./workers"
 import Divisions from "./divisions"
@@ -33,4 +34,5 @@ export {
     Units,
     Plans,
     SalesPlan,
+    PurchasesPlan,
 }

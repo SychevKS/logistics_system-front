@@ -12,7 +12,7 @@ import {
     Button,
 } from "@mui/material"
 
-import { DivisionKind, DivisionKindDTO } from "@utils/enums"
+import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
 export default function List({ invoices, columns, url }) {
@@ -45,8 +45,8 @@ export default function List({ invoices, columns, url }) {
                             </TableCell>
                             {invoice.division && (
                                 <TableCell>
-                                    {DivisionKind[
-                                        inverseEnum(DivisionKindDTO)[invoice.division.kind]
+                                    {divisionKind[
+                                        inverseEnum(divisionKindDTO)[invoice.division.kind]
                                     ] +
                                         " № " +
                                         invoice.division.number}
@@ -55,8 +55,8 @@ export default function List({ invoices, columns, url }) {
                             {invoice.partner && <TableCell>{invoice.partner.name}</TableCell>}
                             {invoice.inDivision && (
                                 <TableCell>
-                                    {DivisionKind[
-                                        inverseEnum(DivisionKindDTO)[invoice.inDivision.kind]
+                                    {divisionKind[
+                                        inverseEnum(divisionKindDTO)[invoice.inDivision.kind]
                                     ] +
                                         " № " +
                                         invoice.inDivision.number}
@@ -64,8 +64,8 @@ export default function List({ invoices, columns, url }) {
                             )}
                             {invoice.outDivision && (
                                 <TableCell>
-                                    {DivisionKind[
-                                        inverseEnum(DivisionKindDTO)[invoice.outDivision.kind]
+                                    {divisionKind[
+                                        inverseEnum(divisionKindDTO)[invoice.outDivision.kind]
                                     ] +
                                         " № " +
                                         invoice.outDivision.number}

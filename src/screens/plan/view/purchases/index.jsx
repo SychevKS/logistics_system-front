@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import {
     Container,
     Typography,
+    Box,
     TableContainer,
     Table,
     Paper,
@@ -14,13 +15,16 @@ import {
 } from "@mui/material"
 
 import { useData } from "@hooks"
+import { month, monthDTO } from "@utils/enums"
+import { divisionKind, divisionKindDTO } from "@utils/enums"
+import { inverseEnum } from "@utils/helpers"
 
-export default function SalesPlan() {
+export default function PurchasesPlan() {
     const router = useRouter()
     const { id } = router.query
 
-    const plan = useData(id ? `${process.env.API_URL}sales-plan/${id}` : null)
-    const positions = useData(id ? `${process.env.API_URL}sales-plan/${id}/positions` : null)
+    const plan = useData(id ? `${process.env.API_URL}purchases-plan/${id}` : null)
+    const positions = useData(id ? `${process.env.API_URL}purchases-plan/${id}/positions` : null)
 
     if (plan.isLoading) {
         return
@@ -36,9 +40,12 @@ export default function SalesPlan() {
                 alignItems: "stretch",
             }}
         >
-            <Typography variant="h5" mb={3}>
-                План продаж на {plan.data.year} год.
-            </Typography>
+            <Box display="flex" alignItems="center" mb={3}>
+                <Typography variant="h5" sx={{ mr: 1 }}>
+                    План закупок на {month[inverseEnum(monthDTO)[plan.data.month]]} месяц{" "}
+                    {plan.data.salesPlan.year} года.
+                </Typography>
+            </Box>
 
             <TableContainer
                 component={Paper}
@@ -52,15 +59,21 @@ export default function SalesPlan() {
                     <Table sx={{ minWidth: 650 }} stickyHeader>
                         <TableHead>
                             <TableRow>
+                                <TableCell align="left">Подразделение</TableCell>
                                 <TableCell align="left">Наименование</TableCell>
-                                <TableCell align="left" sx={{ width: 200 }}>
-                                    Количество
-                                </TableCell>
+                                <TableCell align="left">Количество</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {positions.data.map(position => (
                                 <TableRow key={position.id}>
+                                    <TableCell>
+                                        {`${
+                                            divisionKind[
+                                                inverseEnum(divisionKindDTO)[position.division.kind]
+                                            ]
+                                        } № ${position.division.number}`}
+                                    </TableCell>
                                     <TableCell>{position.product.name}</TableCell>
                                     <TableCell>{position.quantity}</TableCell>
                                 </TableRow>

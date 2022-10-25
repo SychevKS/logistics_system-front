@@ -1,16 +1,16 @@
 import { createEnum } from "@utils/helpers"
 
 export default createEnum({
-    January: "Январь",
-    February: "Февраль",
-    March: "Март",
-    April: "Апрель",
-    May: "Май",
-    June: "Июнь",
-    July: "Июль",
-    August: "Август",
-    September: "Сентябрь",
-    October: "Октябрь",
-    November: "Ноябрь",
-    December: "Декабрь",
+    January: "январь",
+    February: "февраль",
+    March: "март",
+    April: "апрель",
+    May: "май",
+    June: "июнь",
+    July: "июль",
+    August: "август",
+    September: "сентябрь",
+    October: "октябрь",
+    November: "ноябрь",
+    December: "декабрь",
 })

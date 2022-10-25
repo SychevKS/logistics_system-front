@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { Container } from "@mui/material"
 
 import { useData } from "@hooks"
-import { DivisionKind, DivisionKindDTO } from "@utils/enums"
+import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 import { Title, Table } from "../components"
 
@@ -32,7 +32,7 @@ export default function PurchaseInvoice() {
                 subtitles={[
                     `Поставщик: ${data.partner.name}`,
                     `Подразделение: ${
-                        DivisionKind[inverseEnum(DivisionKindDTO)[data.division.kind]]
+                        divisionKind[inverseEnum(divisionKindDTO)[data.division.kind]]
                     } № ${data.division.number}`,
                 ]}
             />

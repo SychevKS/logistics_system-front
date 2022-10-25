@@ -16,11 +16,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import MenuIcon from "@mui/icons-material/Menu"
 
-const pages = [
-    { label: "Планы", href: "/" },
-    { label: "Документы", href: "/documents" },
-    { label: "Товароучет", href: "/" },
-]
+const pages = [{ label: "Главная", href: "/" }]
 
 export default function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null)
