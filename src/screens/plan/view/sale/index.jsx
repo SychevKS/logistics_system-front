@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "next/router"
 
 import {
     Container,
@@ -12,60 +13,17 @@ import {
     TableCell,
 } from "@mui/material"
 
-const rows = [
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-    {
-        name: "undefined",
-        amount: "undefined",
-    },
-]
-
-const year = 2022
+import { useData } from "@hooks"
 
 export default function SalesPlan() {
+    const router = useRouter()
+    const { id } = router.query
+    const plan = useData(id ? `${process.env.API_URL}sales-plan/${id}` : null)
+    const positions = useData(id ? `${process.env.API_URL}sales-plan/${id}/positions` : null)
+    console.log(positions)
+    if (plan.isLoading) {
+        return
+    }
     return (
         <Container
             maxWidth="md"
@@ -78,36 +36,37 @@ export default function SalesPlan() {
             }}
         >
             <Typography variant="h5" mb={3}>
-                Составление плана продаж на {year} г.
+                План продаж на {plan.data.year} год.
             </Typography>
 
             <TableContainer
                 component={Paper}
                 sx={{
-                    border: 1,
                     boxShadow: 0,
                     flexGrow: 1,
                     height: 0,
                 }}
             >
-                <Table sx={{ minWidth: 650 }} stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="left">Наименование</TableCell>
-                            <TableCell align="left" sx={{ width: 200 }}>
-                                Количество
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.amount}</TableCell>
+                {positions.data && (
+                    <Table sx={{ minWidth: 650 }} stickyHeader>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left">Наименование</TableCell>
+                                <TableCell align="left" sx={{ width: 200 }}>
+                                    Количество
+                                </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {positions.data.map(position => (
+                                <TableRow key={position.id}>
+                                    <TableCell>{position.product.name}</TableCell>
+                                    <TableCell>{position.quantity}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                )}
             </TableContainer>
         </Container>
     )

@@ -10,6 +10,7 @@ import TransferInvoices from "./invoices/transfer"
 import TransferInvoice from "./invoice/view/transfer"
 
 import Plans from "./plans"
+import SalesPlan from "./plan/view/sale"
 
 import Workers from "./workers"
 import Divisions from "./divisions"
@@ -19,7 +20,6 @@ import Units from "./units"
 
 export {
     Home,
-    Plans,
     PurchaseInvoices,
     PurchaseInvoice,
     SaleInvoices,
@@ -31,4 +31,6 @@ export {
     Partners,
     Products,
     Units,
+    Plans,
+    SalesPlan,
 }

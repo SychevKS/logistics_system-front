@@ -17,73 +17,12 @@ import {
 } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
-import DeleteIcon from "@mui/icons-material/Delete"
-import EditIcon from "@mui/icons-material/Edit"
 
-const plans = [
-    {
-        id: 0,
-        date: 2021,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-        ],
-    },
-    {
-        id: 1,
-        date: 2022,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-            { id: 3, mouth: "апрель" },
-            { id: 4, mouth: "май" },
-            { id: 5, mouth: "июнь" },
-        ],
-    },
-    {
-        id: 2,
-        date: 2023,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-        ],
-    },
-    {
-        id: 3,
-        date: 2024,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-        ],
-    },
-    {
-        id: 4,
-        date: 2025,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-            { id: 3, mouth: "апрель" },
-            { id: 4, mouth: "май" },
-            { id: 5, mouth: "июнь" },
-        ],
-    },
-    {
-        id: 5,
-        date: 2026,
-        purchases: [
-            { id: 0, mouth: "январь" },
-            { id: 1, mouth: "февраль" },
-            { id: 2, mouth: "март" },
-        ],
-    },
-]
+import { useData } from "@hooks"
+import { month, monthDTO } from "@utils/enums"
+import { inverseEnum } from "@utils/helpers"
 
-export default function Plans() {
+export default function Plans({ salesPlans }) {
     return (
         <Container
             maxWidth="md"
@@ -103,16 +42,16 @@ export default function Plans() {
                     boxShadow: 0,
                 }}
             >
-                <Table aria-label="collapsible table">
+                <Table>
                     <TableBody>
-                        {plans.map(row => (
-                            <Row key={row.id} row={row} />
+                        {salesPlans.map(salesPlan => (
+                            <Row key={salesPlan.id} row={salesPlan} />
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             <Link href="/add-sales-plan" passHref>
-                <Button sx={{ mt: 2 }} variant="outlined">
+                <Button sx={{ mt: 2 }} variant="contained">
                     Добавить план продаж
                 </Button>
             </Link>
@@ -121,7 +60,14 @@ export default function Plans() {
 }
 
 function Row({ row }) {
-    const [open, setOpen] = React.useState(false)
+    const [idSalePlan, setIdSalePlan] = React.useState(null)
+    const purchasePlans = useData(
+        idSalePlan ? `${process.env.API_URL}sales-plan/${idSalePlan}/purchases-plans` : null
+    )
+
+    const onClick = id => () => {
+        setIdSalePlan(prev => (!prev ? id : null))
+    }
 
     return (
         <>
@@ -132,69 +78,59 @@ function Row({ row }) {
                 }}
             >
                 <TableCell sx={{ width: 66, borderBottom: 0 }}>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    <IconButton aria-label="expand row" size="small" onClick={onClick(row.id)}>
+                        {idSalePlan ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell>
-                    <Link href="/sales-plan/1" passHref>
+                <TableCell sx={{ borderBottom: 0 }}>
+                    <Link href={`plan-sales/${row.id}`} passHref>
                         <Button
                             color="inherit"
                             variant="text"
                             sx={{ textTransform: "none", fontWeight: "bold" }}
                         >
-                            План продаж на {row.date} г.
+                            План продаж на {row.year} г.
                         </Button>
                     </Link>
                 </TableCell>
-                <TableCell sx={{ width: 66, borderBottom: 0 }}>
-                    <IconButton size="small">
-                        <EditIcon />
-                    </IconButton>
-                </TableCell>
-                <TableCell sx={{ width: 66, borderBottom: 0 }}>
-                    <IconButton size="small">
-                        <DeleteIcon />
-                    </IconButton>
-                </TableCell>
             </TableRow>
+
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
+                    <Collapse in={Boolean(purchasePlans.data)} timeout="auto" unmountOnExit>
                         <Box sx={{ mb: 2, mx: 15 }}>
                             <Table size="small" aria-label="purchases">
-                                <TableBody>
-                                    {row.purchases.map(({ id, mouth }) => (
-                                        <TableRow key={id}>
-                                            <TableCell component="th" scope="row">
-                                                <Link href="/procurement-plan/1" passHref>
-                                                    <Button
-                                                        color="inherit"
-                                                        variant="text"
-                                                        sx={{ textTransform: "none" }}
-                                                    >
-                                                        План закупок на {mouth}
-                                                    </Button>
-                                                </Link>
-                                            </TableCell>
-                                            <TableCell sx={{ width: 66 }}>
-                                                <IconButton size="small">
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </TableCell>
-                                            <TableCell sx={{ width: 66 }}>
-                                                <IconButton size="small">
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
+                                {purchasePlans.data && (
+                                    <TableBody>
+                                        {purchasePlans.data.map(plan => (
+                                            <TableRow key={plan.id}>
+                                                <TableCell component="th" scope="row">
+                                                    <Link href="/procurement-plan/1" passHref>
+                                                        <Button
+                                                            color="inherit"
+                                                            variant="text"
+                                                            sx={{ textTransform: "none" }}
+                                                        >
+                                                            План закупок на{" "}
+                                                            {
+                                                                month[
+                                                                    inverseEnum(monthDTO)[
+                                                                        plan.month
+                                                                    ]
+                                                                ]
+                                                            }
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                )}
                             </Table>
                             <Link href="/add-procurement-plan" passHref>
                                 <Button
                                     sx={{ my: 2, width: "100%" }}
-                                    variant="outlined"
+                                    variant="contained"
                                     size="small"
                                 >
                                     Добавить план закупок

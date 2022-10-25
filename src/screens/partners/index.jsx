@@ -12,7 +12,7 @@ import {
     Paper,
 } from "@mui/material"
 
-import { PartnerKind, PartnerKindDTO } from "@utils/enums"
+import { partnerKind, partnerKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
 export default function Partners({ partners }) {
@@ -43,7 +43,7 @@ export default function Partners({ partners }) {
                             <TableRow key={partner.id}>
                                 <TableCell>{partner.name}</TableCell>
                                 <TableCell>
-                                    {PartnerKind[inverseEnum(PartnerKindDTO)[partner.kind]]}
+                                    {partnerKind[inverseEnum(partnerKindDTO)[partner.kind]]}
                                 </TableCell>
                             </TableRow>
                         ))}
