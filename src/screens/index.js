@@ -12,6 +12,9 @@ import TransferInvoice from "./invoice/view/transfer"
 import Plans from "./plans"
 
 import Workers from "./workers"
+import Divisions from "./divisions"
+import Partners from "./partners"
+import Products from "./products"
 
 export {
     Home,
@@ -23,4 +26,7 @@ export {
     TransferInvoices,
     TransferInvoice,
     Workers,
+    Divisions,
+    Partners,
+    Products,
 }
