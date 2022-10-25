@@ -15,6 +15,7 @@ import Workers from "./workers"
 import Divisions from "./divisions"
 import Partners from "./partners"
 import Products from "./products"
+import Units from "./units"
 
 export {
     Home,
@@ -29,4 +30,5 @@ export {
     Divisions,
     Partners,
     Products,
+    Units,
 }
