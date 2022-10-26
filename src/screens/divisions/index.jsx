@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import {
     Container,
@@ -10,7 +11,9 @@ import {
     TableRow,
     TableCell,
     Paper,
+    IconButton,
 } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
 
 import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
@@ -36,6 +39,7 @@ export default function Divisions({ divisions }) {
                         <TableRow>
                             <TableCell>Тип</TableCell>
                             <TableCell>Номер</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -45,6 +49,13 @@ export default function Divisions({ divisions }) {
                                     {divisionKind[inverseEnum(divisionKindDTO)[division.kind]]}
                                 </TableCell>
                                 <TableCell>{division.number}</TableCell>
+                                <TableCell>
+                                    <Link href={`update-division/${division.id}`} passHref>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

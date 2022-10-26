@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import {
     Container,
@@ -10,7 +11,9 @@ import {
     TableRow,
     TableCell,
     Paper,
+    IconButton,
 } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
 
 export default function Units({ units }) {
     return (
@@ -33,11 +36,19 @@ export default function Units({ units }) {
                         <TableRow>
                             <TableCell>Наименование</TableCell>
                         </TableRow>
+                        <TableCell></TableCell>
                     </TableHead>
                     <TableBody>
                         {units.map(unit => (
                             <TableRow key={unit.id}>
                                 <TableCell>{unit.name}</TableCell>
+                                <TableCell>
+                                    <Link href={`update-unit/${unit.id}`} passHref>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import {
     Container,
@@ -10,7 +11,9 @@ import {
     TableRow,
     TableCell,
     Paper,
+    IconButton,
 } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
 
 import { partnerKind, partnerKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
@@ -36,6 +39,7 @@ export default function Partners({ partners }) {
                         <TableRow>
                             <TableCell>Наименование</TableCell>
                             <TableCell>Тип</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -44,6 +48,13 @@ export default function Partners({ partners }) {
                                 <TableCell>{partner.name}</TableCell>
                                 <TableCell>
                                     {partnerKind[inverseEnum(partnerKindDTO)[partner.kind]]}
+                                </TableCell>
+                                <TableCell>
+                                    <Link href={`update-partner/${partner.id}`} passHref>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Link>
                                 </TableCell>
                             </TableRow>
                         ))}

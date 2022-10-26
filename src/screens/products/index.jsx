@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import {
     Container,
@@ -10,7 +11,9 @@ import {
     TableRow,
     TableCell,
     Paper,
+    IconButton,
 } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
 
 export default function Products({ products }) {
     return (
@@ -34,6 +37,7 @@ export default function Products({ products }) {
                             <TableCell>Наименование</TableCell>
                             <TableCell>Еденица измерения</TableCell>
                             <TableCell>Цена</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -42,6 +46,13 @@ export default function Products({ products }) {
                                 <TableCell>{product.name}</TableCell>
                                 <TableCell>{product.unit}</TableCell>
                                 <TableCell>{product.price}</TableCell>
+                                <TableCell>
+                                    <Link href={`update-product/${product.id}`} passHref>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
