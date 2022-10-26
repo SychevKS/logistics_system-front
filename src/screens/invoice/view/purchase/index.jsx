@@ -29,6 +29,7 @@ export default function PurchaseInvoice() {
         >
             <Title
                 title={`Приходная накладная номер ${data.number} от ${data.date}`}
+                worker={data.worker.surname + " " + data.worker.name}
                 subtitles={[
                     `Поставщик: ${data.partner.name}`,
                     `Подразделение: ${

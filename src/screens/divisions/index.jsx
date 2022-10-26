@@ -12,7 +12,7 @@ import {
     Paper,
 } from "@mui/material"
 
-import { DivisionKind, DivisionKindDTO } from "@utils/enums"
+import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
 export default function Divisions({ divisions }) {
@@ -42,7 +42,7 @@ export default function Divisions({ divisions }) {
                         {divisions.map(division => (
                             <TableRow key={division.id}>
                                 <TableCell>
-                                    {DivisionKind[inverseEnum(DivisionKindDTO)[division.kind]]}
+                                    {divisionKind[inverseEnum(divisionKindDTO)[division.kind]]}
                                 </TableCell>
                                 <TableCell>{division.number}</TableCell>
                             </TableRow>

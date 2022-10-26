@@ -18,6 +18,7 @@ import Divisions from "./divisions"
 import Partners from "./partners"
 import Products from "./products"
 import Units from "./units"
+import Remainings from "./remainings"
 
 export {
     Home,
@@ -32,6 +33,7 @@ export {
     Partners,
     Products,
     Units,
+    Remainings,
     Plans,
     SalesPlan,
     PurchasesPlan,

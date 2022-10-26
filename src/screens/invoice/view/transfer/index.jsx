@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { Container } from "@mui/material"
 
 import { useData } from "@hooks"
-import { DivisionKind, DivisionKindDTO } from "@utils/enums"
+import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 import { Title, Table } from "../components"
 
@@ -29,12 +29,13 @@ export default function TransferInvoice() {
         >
             <Title
                 title={`Акт приема-передачи номер ${data.number} от ${data.date}`}
+                worker={data.worker.surname + " " + data.worker.name}
                 subtitles={[
                     `Подразделение отправитель: ${
-                        DivisionKind[inverseEnum(DivisionKindDTO)[data.inDivision.kind]]
+                        divisionKind[inverseEnum(divisionKindDTO)[data.inDivision.kind]]
                     } № ${data.inDivision.number}`,
                     `Подразделение получатель: ${
-                        DivisionKind[inverseEnum(DivisionKindDTO)[data.outDivision.kind]]
+                        divisionKind[inverseEnum(divisionKindDTO)[data.outDivision.kind]]
                     } № ${data.outDivision.number}`,
                 ]}
             />

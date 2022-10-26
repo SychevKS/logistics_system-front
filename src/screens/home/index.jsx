@@ -31,7 +31,7 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
-            <Paper sx={{ mr: 5, p: 2, mb: 2 }}>
+            <Paper sx={{ p: 2, mb: 2 }}>
                 <Box sx={{ width: 300 }}>
                     <Typography fontWeight={500}>Планы</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
@@ -41,7 +41,7 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
-            <Paper sx={{ p: 2 }}>
+            <Paper sx={{ mr: 5, p: 2, mb: 2 }}>
                 <Box sx={{ width: 300 }}>
                     <Typography fontWeight={500}>Справочники</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
@@ -59,6 +59,16 @@ export default function Home() {
                         </Link>
                         <Link href="/units" passHref>
                             <ALink underline="hover">Еденицы измерения товара</ALink>
+                        </Link>
+                    </Box>
+                </Box>
+            </Paper>
+            <Paper sx={{ p: 2, mb: 2 }}>
+                <Box sx={{ width: 300 }}>
+                    <Typography fontWeight={500}>Подсчет</Typography>
+                    <Box display="flex" flexDirection="column" mt={1}>
+                        <Link href="/remainings" passHref>
+                            <ALink underline="hover">Остатки товара</ALink>
                         </Link>
                     </Box>
                 </Box>
