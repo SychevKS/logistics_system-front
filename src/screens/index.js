@@ -14,6 +14,8 @@ import SalesPlan from "./plan/view/sale"
 import PurchasesPlan from "./plan/view/purchases"
 
 import Workers from "./workers"
+import UpdateWorker from "./workers/update"
+
 import Divisions from "./divisions"
 import Partners from "./partners"
 import Products from "./products"
@@ -29,6 +31,7 @@ export {
     TransferInvoices,
     TransferInvoice,
     Workers,
+    UpdateWorker,
     Divisions,
     Partners,
     Products,

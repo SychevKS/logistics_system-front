@@ -14,14 +14,21 @@ const darkTheme = createTheme({
 
 export default function Layout({ Component, pageProps }) {
     return (
-        <ThemeProvider theme={darkTheme}>
-            <CssBaseline />
-            <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-                <Header />
-                <Box sx={{ flexGrow: 1 }}>
-                    <Component {...pageProps} />
-                </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+            <Header />
+            <Box sx={{ flexGrow: 1 }}>
+                <Component {...pageProps} />
             </Box>
-        </ThemeProvider>
+        </Box>
     )
 }
+
+/* ;<ThemeProvider theme={darkTheme}>
+    <CssBaseline />
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+        <Header />
+        <Box sx={{ flexGrow: 1 }}>
+            <Component {...pageProps} />
+        </Box>
+    </Box>
+</ThemeProvider> */

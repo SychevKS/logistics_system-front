@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import {
     Container,
@@ -10,7 +11,9 @@ import {
     TableRow,
     TableCell,
     Paper,
+    IconButton,
 } from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
 
 export default function Workers({ workers }) {
     return (
@@ -34,6 +37,7 @@ export default function Workers({ workers }) {
                             <TableCell>Фамилия</TableCell>
                             <TableCell>Имя</TableCell>
                             <TableCell>Дата рождения</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -42,6 +46,13 @@ export default function Workers({ workers }) {
                                 <TableCell>{worker.surname}</TableCell>
                                 <TableCell>{worker.name}</TableCell>
                                 <TableCell>{worker.birthDate}</TableCell>
+                                <TableCell>
+                                    <Link href={`update-worker/${worker.id}`} passHref>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

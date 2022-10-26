@@ -8,9 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 
-export default function DateInput({ width, fontSize }) {
-    const [value, setValue] = React.useState(dayjs())
-
+export default function DateInput({ value, setValue, width, fontSize, margin, label }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"ru"}>
             <DatePicker
@@ -18,8 +16,10 @@ export default function DateInput({ width, fontSize }) {
                 onChange={newValue => {
                     setValue(newValue)
                 }}
+                label={label}
                 renderInput={params => (
                     <TextField
+                        margin={margin}
                         sx={{
                             "width": width,
                             "& .MuiInputBase-input": { fontSize: fontSize },
