@@ -30,9 +30,6 @@ export default function Partners({ partners }) {
                 pb: 6,
             }}
         >
-            <Button sx={{ width: 400, mb: 2 }} variant="contained">
-                Добавить партнера
-            </Button>
             <TableContainer component={Paper} sx={{ flexGrow: 1, height: 0 }}>
                 <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
                     <TableHead>
@@ -61,6 +58,9 @@ export default function Partners({ partners }) {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                Добавить партнера
+            </Button>
         </Container>
     )
 }

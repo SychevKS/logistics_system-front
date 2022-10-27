@@ -4,33 +4,38 @@ import { useRouter } from "next/router"
 import { Container, Button, Paper, Typography, TextField } from "@mui/material"
 
 import { useData } from "@hooks"
+import { Select } from "@components"
+import { partnerKind, partnerKindDTO } from "@utils/enums"
 
-export default function UpdateUnit() {
+export default function UpdatePartner() {
     const router = useRouter()
     const { id } = router.query
 
-    const unit = useData(id ? `${process.env.API_URL}unit/${id}` : null)
+    const partner = useData(id ? `${process.env.API_URL}partner/${id}` : null)
 
     const [name, setName] = useState("")
+    const [kind, setKind] = useState(0)
 
     useEffect(() => {
-        if (unit.data) {
-            setName(unit.data.name)
+        if (partner.data) {
+            setName(partner.data.name)
+            setKind(partner.data.kind)
         }
-    }, [unit.data])
+    }, [partner.data])
 
     const onSend = () => {
         const data = new URLSearchParams({
-            Id: `${unit.data.id}`,
-            Name: `${name}`,
+            Id: partner.data.id,
+            Name: name,
+            Kind: kind,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-unit?${data}`, {
+        fetch(`${process.env.API_URL}update-partner?${data}`, {
             method: "post",
-        }).then(() => router.push("/units"))
+        }).then(() => router.push("/partners"))
     }
 
-    if (unit.isLoading) {
+    if (partner.isLoading) {
         return
     }
     return (
@@ -46,7 +51,7 @@ export default function UpdateUnit() {
         >
             <Paper sx={{ p: 2, width: "100%" }}>
                 <Typography sx={{ mb: 2 }} fontSize={24}>
-                    Обновление еденицы измерения:
+                    Обновление партнера:
                 </Typography>
                 <TextField
                     value={name}
@@ -54,7 +59,17 @@ export default function UpdateUnit() {
                     size="small"
                     margin="dense"
                     fullWidth
-                    label="Имя"
+                    label="Название"
+                />
+
+                <Select
+                    label="Тип"
+                    value={kind}
+                    onChange={event => setKind(event.target.value)}
+                    options={Object.entries(partnerKind).map(([key, value]) => ({
+                        id: partnerKindDTO[key],
+                        name: value,
+                    }))}
                 />
             </Paper>
             <Button onClick={onSend} sx={{ mt: 2 }} variant="contained">

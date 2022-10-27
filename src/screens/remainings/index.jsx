@@ -61,7 +61,7 @@ export default function Remainings() {
                                         {remainings.map(remaining => (
                                             <TableRow>
                                                 <TableCell>{remaining.product.name}</TableCell>
-                                                <TableCell>{remaining.product.unit}</TableCell>
+                                                <TableCell>{remaining.product.unit.name}</TableCell>
                                                 <TableCell>{remaining.quantity}</TableCell>
                                             </TableRow>
                                         ))}

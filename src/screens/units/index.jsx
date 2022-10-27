@@ -27,16 +27,13 @@ export default function Units({ units }) {
                 pb: 6,
             }}
         >
-            <Button sx={{ width: 400, mb: 2 }} variant="contained">
-                Добавить еденицу измерения
-            </Button>
             <TableContainer component={Paper} sx={{ flexGrow: 1, height: 0 }}>
                 <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
                     <TableHead>
                         <TableRow>
                             <TableCell>Наименование</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
-                        <TableCell></TableCell>
                     </TableHead>
                     <TableBody>
                         {units.map(unit => (
@@ -54,6 +51,9 @@ export default function Units({ units }) {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                Добавить еденицу измерения
+            </Button>
         </Container>
     )
 }

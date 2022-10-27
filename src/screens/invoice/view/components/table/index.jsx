@@ -23,9 +23,6 @@ export default function Table({ invoiceId }) {
         <TableContainer
             component={Paper}
             sx={{
-                boxShadow: 0,
-                borderRadius: 0,
-                border: "2px solid black",
                 flexGrow: 1,
                 height: 0,
             }}
@@ -33,8 +30,6 @@ export default function Table({ invoiceId }) {
             <TableBase
                 sx={{
                     minWidth: 650,
-                    th: { borderBottom: "2px solid black", textAlign: "center", fontWeight: 700 },
-                    td: { borterBottom: 0, textAlign: "center" },
                 }}
                 size="small"
                 stickyHeader
@@ -55,7 +50,7 @@ export default function Table({ invoiceId }) {
                         <TableRow key={id}>
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>{product.name}</TableCell>
-                            <TableCell>{product.unit}</TableCell>
+                            <TableCell>{product.unit.name}</TableCell>
                             <TableCell>{price}</TableCell>
                             <TableCell>{quantity}</TableCell>
                             <TableCell>{price * quantity}</TableCell>

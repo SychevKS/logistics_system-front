@@ -27,9 +27,6 @@ export default function Products({ products }) {
                 pb: 6,
             }}
         >
-            <Button sx={{ width: 400, mb: 2 }} variant="contained">
-                Добавить продукт
-            </Button>
             <TableContainer component={Paper} sx={{ flexGrow: 1, height: 0 }}>
                 <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
                     <TableHead>
@@ -44,7 +41,7 @@ export default function Products({ products }) {
                         {products.map(product => (
                             <TableRow key={product.id}>
                                 <TableCell>{product.name}</TableCell>
-                                <TableCell>{product.unit}</TableCell>
+                                <TableCell>{product.unit.name}</TableCell>
                                 <TableCell>{product.price}</TableCell>
                                 <TableCell>
                                     <Link href={`update-product/${product.id}`} passHref>
@@ -58,6 +55,9 @@ export default function Products({ products }) {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                Добавить продукт
+            </Button>
         </Container>
     )
 }

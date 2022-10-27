@@ -24,7 +24,7 @@ export default function Select({
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth size="small" sx={{ mt: margin }} disabled={disabled}>
-                <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+                <InputLabel>{label}</InputLabel>
                 <BasicSelect
                     sx={{ fontSize: fz }}
                     label={label}
@@ -33,8 +33,8 @@ export default function Select({
                     MenuProps={MenuProps}
                 >
                     {options.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                            {item}
+                        <MenuItem key={index} value={item.id}>
+                            {item.name}
                         </MenuItem>
                     ))}
                 </BasicSelect>

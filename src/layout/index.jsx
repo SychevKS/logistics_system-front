@@ -14,12 +14,15 @@ const darkTheme = createTheme({
 
 export default function Layout({ Component, pageProps }) {
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-            <Header />
-            <Box sx={{ flexGrow: 1 }}>
-                <Component {...pageProps} />
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+                <Header />
+                <Box sx={{ flexGrow: 1 }}>
+                    <Component {...pageProps} />
+                </Box>
             </Box>
-        </Box>
+        </ThemeProvider>
     )
 }
 

@@ -77,7 +77,7 @@ export default function PurchasesPlan() {
                                         } № ${position.division.number}`}
                                     </TableCell>
                                     <TableCell>{position.product.name}</TableCell>
-                                    <TableCell>{position.product.unit}</TableCell>
+                                    <TableCell>{position.product.unit.name}</TableCell>
                                     <TableCell>{position.purpose}</TableCell>
                                     <TableCell>
                                         {((position.realization * 100) / position.purpose).toFixed(
