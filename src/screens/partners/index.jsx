@@ -58,9 +58,11 @@ export default function Partners({ partners }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                Добавить партнера
-            </Button>
+            <Link href={"/add-partner"} passHref>
+                <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                    Добавить партнера
+                </Button>
+            </Link>
         </Container>
     )
 }

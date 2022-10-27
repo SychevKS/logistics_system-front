@@ -55,9 +55,11 @@ export default function Workers({ workers }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                Добавить сотрудника
-            </Button>
+            <Link href={`/add-worker`} passHref>
+                <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                    Добавить сотрудника
+                </Button>
+            </Link>
         </Container>
     )
 }

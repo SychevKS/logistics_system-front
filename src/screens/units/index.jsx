@@ -51,9 +51,11 @@ export default function Units({ units }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                Добавить еденицу измерения
-            </Button>
+            <Link href={`/add-unit`} passHref>
+                <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                    Добавить еденицу измерения
+                </Button>
+            </Link>
         </Container>
     )
 }

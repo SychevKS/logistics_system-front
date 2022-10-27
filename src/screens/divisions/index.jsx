@@ -58,9 +58,11 @@ export default function Divisions({ divisions }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                Добавить подразделение
-            </Button>
+            <Link href={`/add-division`} passHref>
+                <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                    Добавить подразделение
+                </Button>
+            </Link>
         </Container>
     )
 }

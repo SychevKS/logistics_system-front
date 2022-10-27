@@ -15,18 +15,23 @@ import PurchasesPlan from "./plan/view/purchases"
 
 import Workers from "./workers"
 import UpdateWorker from "./workers/update"
+import AddWorker from "./workers/add"
 
 import Units from "./units"
 import UpdateUnit from "./units/update"
+import AddUnit from "./units/add"
 
 import Divisions from "./divisions"
 import UpdateDivision from "./divisions/update"
+import AddDivision from "./divisions/add"
 
 import Partners from "./partners"
 import UpdatePartner from "./partners/update"
+import AddPartner from "./partners/add"
 
 import Products from "./products"
 import UpdateProduct from "./products/update"
+import AddProduct from "./products/add"
 
 import Remainings from "./remainings"
 
@@ -52,4 +57,9 @@ export {
     SalesPlan,
     PurchasesPlan,
     UpdateDivision,
+    AddWorker,
+    AddUnit,
+    AddProduct,
+    AddPartner,
+    AddDivision,
 }

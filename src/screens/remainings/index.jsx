@@ -35,38 +35,37 @@ export default function Remainings() {
         >
             <TableContainer component={Paper} sx={{ flexGrow: 1, height: 0 }}>
                 <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
-                    {/* <TableHead>
+                    <TableHead>
                         <TableRow>
-                            <TableCell>Подразделение</TableCell>
-                            <TableCell>Товар</TableCell>
+                            <TableCell align="center">Подразделение</TableCell>
+                            <TableCell align="center">Наименование</TableCell>
+                            <TableCell align="center">Ед. измерения</TableCell>
+                            <TableCell align="center">Остаток</TableCell>
                         </TableRow>
-                    </TableHead> */}
+                    </TableHead>
                     <TableBody>
                         {data.map(({ division, remainings }) => (
                             <TableRow key={division.id}>
-                                <TableCell rowSpan={remainings.length}>
+                                <TableCell align="center" rowSpan={remainings.length}>
                                     {divisionKind[inverseEnum(divisionKindDTO)[division.kind]] +
                                         " № " +
                                         division.number}
                                 </TableCell>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Наименование</TableCell>
-                                            <TableCell>Ед. измерения</TableCell>
-                                            <TableCell>Остаток</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {remainings.map(remaining => (
-                                            <TableRow>
-                                                <TableCell>{remaining.product.name}</TableCell>
-                                                <TableCell>{remaining.product.unit.name}</TableCell>
-                                                <TableCell>{remaining.quantity}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
+                                <TableCell colSpan={3}>
+                                    <Table size="small">
+                                        <TableBody>
+                                            {remainings.map(remaining => (
+                                                <TableRow key={remaining.id}>
+                                                    <TableCell>{remaining.product.name}</TableCell>
+                                                    <TableCell>
+                                                        {remaining.product.unit.name}
+                                                    </TableCell>
+                                                    <TableCell>{remaining.quantity}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

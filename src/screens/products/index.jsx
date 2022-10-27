@@ -55,9 +55,11 @@ export default function Products({ products }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                Добавить продукт
-            </Button>
+            <Link href={`/add-product`} passHref>
+                <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                    Добавить продукт
+                </Button>
+            </Link>
         </Container>
     )
 }
