@@ -4,7 +4,7 @@ import { Container } from "@mui/material"
 
 import { Title, Table, Footer } from "../components"
 
-export default function AddingIncoming() {
+export default function AddPurchaseInvoice() {
     return (
         <Container
             maxWidth="lg"

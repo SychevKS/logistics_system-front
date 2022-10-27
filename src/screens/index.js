@@ -2,12 +2,15 @@ import Home from "./home"
 
 import PurchaseInvoices from "./invoices/purchase"
 import PurchaseInvoice from "./invoice/view/purchase"
+import AddPurchaseInvoice from "./invoice/add/purchase"
 
 import SaleInvoices from "./invoices/sale"
 import SaleInvoice from "./invoice/view/sale"
+import AddSaleInvoice from "./invoice/add/sale"
 
 import TransferInvoices from "./invoices/transfer"
 import TransferInvoice from "./invoice/view/transfer"
+import AddTransferInvoice from "./invoice/add/transfer"
 
 import Plans from "./plans"
 import SalesPlan from "./plan/view/sale"
@@ -62,4 +65,7 @@ export {
     AddProduct,
     AddPartner,
     AddDivision,
+    AddPurchaseInvoice,
+    AddSaleInvoice,
+    AddTransferInvoice,
 }

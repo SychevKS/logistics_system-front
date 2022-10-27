@@ -4,7 +4,7 @@ import { Container } from "@mui/material"
 
 import { Title, Table, Footer } from "../components"
 
-export default function AddingLeaving() {
+export default function AddTransferInvoice() {
     return (
         <Container
             maxWidth="lg"
