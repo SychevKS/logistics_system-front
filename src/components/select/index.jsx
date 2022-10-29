@@ -20,13 +20,14 @@ export default function Select({
     label,
     margin = 0.5,
     disabled = false,
+    width,
 }) {
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth size="small" sx={{ mt: margin }} disabled={disabled}>
                 <InputLabel>{label}</InputLabel>
                 <BasicSelect
-                    sx={{ fontSize: fz }}
+                    sx={{ fontSize: fz, width }}
                     label={label}
                     value={value}
                     onChange={onChange}

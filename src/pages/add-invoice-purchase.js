@@ -1,3 +1,3 @@
-import { AddingIncoming } from "@screens"
+import { AddPurchaseInvoice } from "@screens"
 
-export default AddingIncoming
+export default AddPurchaseInvoice

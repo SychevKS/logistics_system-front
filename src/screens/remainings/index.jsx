@@ -46,7 +46,7 @@ export default function Remainings() {
                     <TableBody>
                         {data.map(({ division, remainings }) => (
                             <TableRow key={division.id}>
-                                <TableCell align="center" rowSpan={remainings.length}>
+                                <TableCell align="center">
                                     {divisionKind[inverseEnum(divisionKindDTO)[division.kind]] +
                                         " № " +
                                         division.number}
@@ -56,11 +56,9 @@ export default function Remainings() {
                                         <TableBody>
                                             {remainings.map(remaining => (
                                                 <TableRow key={remaining.id}>
-                                                    <TableCell>{remaining.product.name}</TableCell>
-                                                    <TableCell>
-                                                        {remaining.product.unit.name}
-                                                    </TableCell>
-                                                    <TableCell>{remaining.quantity}</TableCell>
+                                                    <TableCell>{remaining.name}</TableCell>
+                                                    <TableCell>{remaining.unit.name}</TableCell>
+                                                    <TableCell>{remaining.remains}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>

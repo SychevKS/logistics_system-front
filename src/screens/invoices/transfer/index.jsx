@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import { Container, Button } from "@mui/material"
 
@@ -16,9 +17,11 @@ export default function TransferInvoices({ invoices }) {
                 pb: 6,
             }}
         >
-            <Button sx={{ width: 400, mb: 2 }} variant="contained">
-                Добавить акт приема-передачи
-            </Button>
+            <Link href="/add-invoice-transfer" passHref>
+                <Button sx={{ width: 400, mb: 2 }} variant="contained">
+                    Добавить акт приема-передачи
+                </Button>
+            </Link>
             <List
                 invoices={invoices}
                 columns={["Подразделение отправитель", "Подразделение приниматель"]}

@@ -4,33 +4,36 @@ import Router from "next/router"
 
 import { Box, Button, Typography } from "@mui/material"
 
-import { SelectWorker } from "@components"
+import { Select } from "@components"
+import { useData } from "@hooks"
 
-export default function Footer({ action }) {
+export default function Footer({ workerId, setWorkerId, onSend }) {
+    const workers = useData(`${process.env.API_URL}workers`)
+
     return (
         <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography sx={{ mr: 2 }} variant="subtitle1">
-                    {action}:
+                    Оформил:
                 </Typography>
-                <SelectWorker
-                    width={250}
-                    options={[{ name: "Сычев К.С" }]}
-                    onChange={value => console.log(value)}
-                />
+                {workers.data && (
+                    <Select
+                        width={300}
+                        value={workerId}
+                        options={workers.data.map(item => ({
+                            ...item,
+                            name: `${item.surname} ${item.name}`,
+                        }))}
+                        onChange={event => setWorkerId(event.target.value)}
+                    />
+                )}
             </Box>
-            <Box sx={{ display: "flex" }}>
-                <Button
-                    sx={{ mr: 2 }}
-                    variant="outlined"
-                    color="error"
-                    size="small"
-                    onClick={() => Router.back()}
-                >
-                    Отклонить
-                </Button>
-                <Button variant="outlined" size="small">
+            <Box sx={{ display: "flex" }} height={"80%"}>
+                <Button onClick={onSend} variant="contained" sx={{ mr: 2 }}>
                     Принять
+                </Button>
+                <Button variant="contained" color="error" onClick={() => Router.back()}>
+                    Отклонить
                 </Button>
             </Box>
         </Box>

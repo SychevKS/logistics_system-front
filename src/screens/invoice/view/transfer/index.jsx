@@ -32,11 +32,11 @@ export default function TransferInvoice() {
                 worker={data.worker.surname + " " + data.worker.name}
                 subtitles={[
                     `Подразделение отправитель: ${
-                        divisionKind[inverseEnum(divisionKindDTO)[data.inDivision.kind]]
-                    } № ${data.inDivision.number}`,
-                    `Подразделение получатель: ${
                         divisionKind[inverseEnum(divisionKindDTO)[data.outDivision.kind]]
                     } № ${data.outDivision.number}`,
+                    `Подразделение получатель: ${
+                        divisionKind[inverseEnum(divisionKindDTO)[data.inDivision.kind]]
+                    } № ${data.inDivision.number}`,
                 ]}
             />
             <Table invoiceId={id} />

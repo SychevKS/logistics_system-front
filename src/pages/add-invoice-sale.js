@@ -1,3 +1,3 @@
-import { AddingLeaving } from "@screens"
+import { AddSaleInvoice } from "@screens"
 
-export default AddingLeaving
+export default AddSaleInvoice

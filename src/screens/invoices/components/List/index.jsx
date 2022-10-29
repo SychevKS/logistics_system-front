@@ -56,19 +56,19 @@ export default function List({ invoices, columns, url }) {
                             {invoice.inDivision && (
                                 <TableCell>
                                     {divisionKind[
-                                        inverseEnum(divisionKindDTO)[invoice.inDivision.kind]
+                                        inverseEnum(divisionKindDTO)[invoice.outDivision.kind]
                                     ] +
                                         " № " +
-                                        invoice.inDivision.number}
+                                        invoice.outDivision.number}
                                 </TableCell>
                             )}
                             {invoice.outDivision && (
                                 <TableCell>
                                     {divisionKind[
-                                        inverseEnum(divisionKindDTO)[invoice.outDivision.kind]
+                                        inverseEnum(divisionKindDTO)[invoice.inDivision.kind]
                                     ] +
                                         " № " +
-                                        invoice.outDivision.number}
+                                        invoice.inDivision.number}
                                 </TableCell>
                             )}
                         </TableRow>

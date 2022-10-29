@@ -2,6 +2,8 @@ import { useCallback, useState, useEffect } from "react"
 
 import { v4 } from "uuid"
 
+import { isObjectFilled } from "@utils/helpers"
+
 const useRows = initialRow => {
     const [rows, setRows] = useState([{ ...initialRow, key: v4() }])
 
@@ -33,7 +35,7 @@ const useRows = initialRow => {
     })
 
     useEffect(() => {
-        if (isObjectFilled(rows)) {
+        if (isObjectFilled(rows[rows.length - 1])) {
             setRows(prev => [...prev, { ...initialRow, key: v4() }])
         }
     }, [rows])
@@ -47,11 +49,3 @@ const useRows = initialRow => {
 }
 
 export default useRows
-
-function isObjectFilled(rows) {
-    let filled = true
-    Object.values(rows[rows.length - 1]).forEach(item => {
-        if (!item) filled = false
-    })
-    return filled
-}
