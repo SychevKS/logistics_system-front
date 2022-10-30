@@ -22,7 +22,8 @@ import DeleteIcon from "@mui/icons-material/Delete"
 
 import { Select } from "@components"
 import { useRows, useData } from "src/hooks"
-import { isObjectFilled } from "@utils/helpers"
+import { month, monthDTO } from "@utils/enums"
+import { isObjectFilled, getArrayFromEnum, getNameDivision } from "@utils/helpers"
 
 const initialRow = {
     name: undefined,
@@ -35,14 +36,15 @@ export default function AddPurchasesPlan() {
     const { id } = router.query
 
     const { rows, removeRow, onChangeSelect, onChangeInput } = useRows(initialRow)
-    const [month, setMonth] = React.useState(0)
+    const [monthValue, setMonthValue] = React.useState(0)
 
     const nomenclature = useData(`${process.env.API_URL}products`)
+    const divisions = useData(`${process.env.API_URL}divisions`)
 
     const onSend = () => {
         const data = new URLSearchParams({
             Id: planId,
-            Month: year,
+            Month: monthValue,
             SalesPlanId: id,
         }).toString()
 
@@ -53,27 +55,27 @@ export default function AddPurchasesPlan() {
                         prev +
                         `positions[${index}].Id=${current.key}&` +
                         `positions[${index}].ProductId=${current.id}&` +
-                        `positions[${index}].SalesPlanId=${planId}&` +
-                        `positions[${index}].Quantity=${current.quantity}&`
+                        `positions[${index}].PurchasesPlanId=${planId}&` +
+                        `positions[${index}].Quantity=${current.quantity}&` +
+                        `positions[${index}].DivisionId=${current.division?.id}&`
                     )
                 }
                 return prev
             },
             [""]
         )
-        console.log(positions)
-        fetch(`${process.env.API_URL}add-sales-plan?${data}`, {
+        fetch(`${process.env.API_URL}add-purchases-plan?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-sales-plan-positions?${positions}`, {
+                fetch(`${process.env.API_URL}add-purchases-plan-positions?${positions}`, {
                     method: "post",
                 })
             })
             .then(() => router.push("/plans"))
     }
-
-    if (nomenclature.isLoading) {
+    console.log(rows)
+    if (nomenclature.isLoading || divisions.isLoading) {
         return
     }
     return (
@@ -89,19 +91,16 @@ export default function AddPurchasesPlan() {
         >
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Typography variant="h5" sx={{ mr: 1 }}>
-                    Составление плана продаж на
+                    Составление плана закупок на
                 </Typography>
                 <Select
-                    value={year}
-                    onChange={event => setYear(event.target.value)}
+                    value={monthValue}
+                    onChange={event => setMonthValue(event.target.value)}
                     fz={20}
-                    options={Array.from({ length: 40 }, (_, i) => ({
-                        id: new Date().getFullYear() - 20 + i,
-                        name: new Date().getFullYear() - 20 + i,
-                    }))}
+                    options={getArrayFromEnum(month, monthDTO)}
                 />
                 <Typography variant="h5" sx={{ ml: 1 }}>
-                    г.
+                    месяц.
                 </Typography>
             </Box>
 
@@ -117,6 +116,7 @@ export default function AddPurchasesPlan() {
                 <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
                     <TableHead>
                         <TableRow>
+                            <TableCell align="left">Подразделение</TableCell>
                             <TableCell align="left">Наименование</TableCell>
                             <TableCell align="left" width={200}>
                                 Количество
@@ -127,6 +127,29 @@ export default function AddPurchasesPlan() {
                     <TableBody>
                         {rows.map((row, index) => (
                             <TableRow key={row.key}>
+                                <TableCell>
+                                    <Autocomplete
+                                        options={divisions.data}
+                                        onChange={(event, newValue) =>
+                                            onChangeSelect(index, value => ({
+                                                division: value,
+                                            }))(newValue)
+                                        }
+                                        getOptionLabel={option => getNameDivision(option)}
+                                        renderInput={params => (
+                                            <TextField
+                                                size="small"
+                                                variant="standard"
+                                                {...params}
+                                            />
+                                        )}
+                                        renderOption={(props, option) => {
+                                            if (!rows.some(row => row.division?.id == option.id)) {
+                                                return <li {...props}>{getNameDivision(option)}</li>
+                                            }
+                                        }}
+                                    />
+                                </TableCell>
                                 <TableCell>
                                     <Autocomplete
                                         options={nomenclature.data}

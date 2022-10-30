@@ -129,7 +129,7 @@ function Row({ row }) {
                                     </TableBody>
                                 )}
                             </Table>
-                            <Link href="/add-plan-purchases" passHref>
+                            <Link href={`/add-plan-purchases/${idSalePlan}`} passHref>
                                 <Button
                                     sx={{ my: 2, width: "100%" }}
                                     variant="contained"

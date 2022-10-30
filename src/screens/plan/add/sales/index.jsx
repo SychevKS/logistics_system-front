@@ -59,7 +59,7 @@ export default function AddSalesPlan() {
             },
             [""]
         )
-        console.log(positions)
+
         fetch(`${process.env.API_URL}add-sales-plan?${data}`, {
             method: "post",
         })

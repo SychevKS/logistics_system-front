@@ -17,14 +17,14 @@ import {
 import { useData } from "@hooks"
 import { month, monthDTO } from "@utils/enums"
 import { divisionKind, divisionKindDTO } from "@utils/enums"
-import { inverseEnum } from "@utils/helpers"
+import { inverseEnum, getNameDivision } from "@utils/helpers"
 
 export default function PurchasesPlan() {
     const router = useRouter()
     const { id } = router.query
 
     const plan = useData(id ? `${process.env.API_URL}purchases-plan/${id}` : null)
-    const positions = useData(id ? `${process.env.API_URL}purchases-plan/${id}/realizations` : null)
+    const positions = useData(id ? `${process.env.API_URL}purchases-plan/${id}/positions` : null)
 
     if (plan.isLoading) {
         return
@@ -69,15 +69,9 @@ export default function PurchasesPlan() {
                         <TableBody>
                             {positions.data.map(position => (
                                 <TableRow key={position.id}>
-                                    <TableCell>
-                                        {`${
-                                            divisionKind[
-                                                inverseEnum(divisionKindDTO)[position.division.kind]
-                                            ]
-                                        } № ${position.division.number}`}
-                                    </TableCell>
-                                    <TableCell>{position.product.name}</TableCell>
-                                    <TableCell>{position.product.unit.name}</TableCell>
+                                    <TableCell>{getNameDivision(position.division)}</TableCell>
+                                    <TableCell>{position.name}</TableCell>
+                                    <TableCell>{position.unit.name}</TableCell>
                                     <TableCell>{position.purpose}</TableCell>
                                     <TableCell>
                                         {((position.realization * 100) / position.purpose).toFixed(

@@ -16,7 +16,7 @@ import Plans from "./plans"
 import SalesPlan from "./plan/view/sale"
 import AddSalesPlan from "./plan/add/sales"
 import PurchasesPlan from "./plan/view/purchases"
-import AddPurchasesPlan from "./plan/view/purchases"
+import AddPurchasesPlan from "./plan/add/purchases"
 
 import Workers from "./workers"
 import UpdateWorker from "./workers/update"
