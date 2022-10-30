@@ -20,7 +20,7 @@ export default function SalesPlan() {
     const { id } = router.query
 
     const plan = useData(id ? `${process.env.API_URL}sales-plan/${id}` : null)
-    const positions = useData(id ? `${process.env.API_URL}sales-plan/${id}/realizations` : null)
+    const positions = useData(id ? `${process.env.API_URL}sales-plan/${id}/positions` : null)
 
     if (plan.isLoading) {
         return
@@ -61,8 +61,8 @@ export default function SalesPlan() {
                         <TableBody>
                             {positions.data.map(position => (
                                 <TableRow key={position.id}>
-                                    <TableCell>{position.product.name}</TableCell>
-                                    <TableCell>{position.product.unit.name}</TableCell>
+                                    <TableCell>{position.name}</TableCell>
+                                    <TableCell>{position.unit.name}</TableCell>
                                     <TableCell>{position.purpose}</TableCell>
                                     <TableCell>
                                         {((position.realization * 100) / position.purpose).toFixed(

@@ -1,3 +1,3 @@
-import { AddingSalesPlan } from "@screens"
+import { AddSalesPlan } from "@screens"
 
-export default AddingSalesPlan
+export default AddSalesPlan

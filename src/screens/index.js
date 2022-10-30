@@ -14,7 +14,9 @@ import AddTransferInvoice from "./invoice/add/transfer"
 
 import Plans from "./plans"
 import SalesPlan from "./plan/view/sale"
+import AddSalesPlan from "./plan/add/sales"
 import PurchasesPlan from "./plan/view/purchases"
+import AddPurchasesPlan from "./plan/view/purchases"
 
 import Workers from "./workers"
 import UpdateWorker from "./workers/update"
@@ -68,4 +70,6 @@ export {
     AddPurchaseInvoice,
     AddSaleInvoice,
     AddTransferInvoice,
+    AddSalesPlan,
+    AddPurchasesPlan,
 }

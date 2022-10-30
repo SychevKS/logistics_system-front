@@ -49,7 +49,7 @@ export default function Table({ nomenclature, setPositions, invoiceId }) {
         )
         setPositions(positions)
     }, [rows])
-    console.log(rows)
+
     return (
         <TableContainer
             component={Paper}

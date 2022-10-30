@@ -49,7 +49,7 @@ export default function Plans({ salesPlans }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href="/add-sales-plan" passHref>
+            <Link href="/add-plan-sales" passHref>
                 <Button sx={{ mt: 2 }} variant="contained">
                     Добавить план продаж
                 </Button>
@@ -129,7 +129,7 @@ function Row({ row }) {
                                     </TableBody>
                                 )}
                             </Table>
-                            <Link href="/add-procurement-plan" passHref>
+                            <Link href="/add-plan-purchases" passHref>
                                 <Button
                                     sx={{ my: 2, width: "100%" }}
                                     variant="contained"
