@@ -25,13 +25,3 @@ export default function Layout({ Component, pageProps }) {
         </ThemeProvider>
     )
 }
-
-/* ;<ThemeProvider theme={darkTheme}>
-    <CssBaseline />
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-        <Header />
-        <Box sx={{ flexGrow: 1 }}>
-            <Component {...pageProps} />
-        </Box>
-    </Box>
-</ThemeProvider> */
