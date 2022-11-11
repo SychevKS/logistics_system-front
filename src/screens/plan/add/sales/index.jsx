@@ -51,7 +51,7 @@ export default function AddSalesPlan() {
                         prev +
                         `positions[${index}].Id=${current.key}&` +
                         `positions[${index}].ProductId=${current.id}&` +
-                        `positions[${index}].SalesPlanId=${planId}&` +
+                        `positions[${index}].PlanSalesId=${planId}&` +
                         `positions[${index}].Quantity=${current.quantity}&`
                     )
                 }
@@ -60,11 +60,11 @@ export default function AddSalesPlan() {
             [""]
         )
 
-        fetch(`${process.env.API_URL}add-sales-plan?${data}`, {
+        fetch(`${process.env.API_URL}sales-plans?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-sales-plan-positions?${positions}`, {
+                fetch(`${process.env.API_URL}sales-plans-positions?${positions}`, {
                     method: "post",
                 })
             })

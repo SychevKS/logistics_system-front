@@ -11,10 +11,10 @@ import { useData } from "@hooks"
 import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
-const invoiceId = v4()
-
 export default function AddTransferInvoice() {
     const router = useRouter()
+    const ref = useRef(v4())
+    const invoiceId = ref.current
 
     const [number, setNumber] = useState("")
     const [date, setDate] = useState(dayjs())
@@ -66,11 +66,11 @@ export default function AddTransferInvoice() {
             OutDivisionId: outDivisionId,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-transfer-invoice?${data}`, {
+        fetch(`${process.env.API_URL}transfer-invoices?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-transfers-positions?${positions}`, {
+                fetch(`${process.env.API_URL}transfers-positions?${positions}`, {
                     method: "post",
                 })
             })

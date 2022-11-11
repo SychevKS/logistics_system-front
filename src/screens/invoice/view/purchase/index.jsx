@@ -11,7 +11,7 @@ import { Title, Table } from "../components"
 export default function PurchaseInvoice() {
     const router = useRouter()
     const { id } = router.query
-    const { data, isLoading } = useData(id ? `${process.env.API_URL}purchase-invoice/${id}` : null)
+    const { data, isLoading } = useData(id ? `${process.env.API_URL}purchase-invoices/${id}` : null)
 
     if (isLoading) {
         return

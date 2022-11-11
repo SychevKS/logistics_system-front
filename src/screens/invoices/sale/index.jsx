@@ -4,8 +4,11 @@ import Link from "next/link"
 import { Container, Button } from "@mui/material"
 
 import { List } from "../components"
+import { useData } from "@hooks"
 
-export default function SaleInvoices({ invoices }) {
+export default function SaleInvoices() {
+    const { data } = useData(`${process.env.API_URL}sale-invoices`)
+
     return (
         <Container
             maxWidth="lg"
@@ -22,11 +25,13 @@ export default function SaleInvoices({ invoices }) {
                     Добавить расходную накладную
                 </Button>
             </Link>
-            <List
-                invoices={invoices}
-                columns={["Подразделение", "Покупатель"]}
-                url="invoice-sale/"
-            />
+            {data && (
+                <List
+                    invoices={data}
+                    columns={["Подразделение", "Покупатель"]}
+                    url="invoice-sale/"
+                />
+            )}
         </Container>
     )
 }

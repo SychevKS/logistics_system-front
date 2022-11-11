@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import { useAuth } from "react-oidc-context"
 
 import { Box, Container, Paper, Typography, Button, Link as ALink } from "@mui/material"
 

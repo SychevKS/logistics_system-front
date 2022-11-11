@@ -11,7 +11,7 @@ import { Title, Table } from "../components"
 export default function TransferInvoice() {
     const router = useRouter()
     const { id } = router.query
-    const { data, isLoading } = useData(id ? `${process.env.API_URL}transfer-invoice/${id}` : null)
+    const { data, isLoading } = useData(id ? `${process.env.API_URL}transfer-invoices/${id}` : null)
 
     if (isLoading) {
         return

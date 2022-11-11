@@ -11,10 +11,10 @@ import { useData } from "@hooks"
 import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
-const invoiceId = v4()
-
 export default function AddSaleInvoice() {
     const router = useRouter()
+    const ref = useRef(v4())
+    const invoiceId = ref.current
 
     const [number, setNumber] = useState("")
     const [date, setDate] = useState(dayjs())
@@ -61,11 +61,11 @@ export default function AddSaleInvoice() {
             PartnerId: partnerId,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-sales-invoice?${data}`, {
+        fetch(`${process.env.API_URL}sale-invoices?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-sales-positions?${positions}`, {
+                fetch(`${process.env.API_URL}sales-positions?${positions}`, {
                     method: "post",
                 })
             })

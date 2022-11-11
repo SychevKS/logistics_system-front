@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { v4 } from "uuid"
 import { useRouter } from "next/router"
 import dayjs from "dayjs"
@@ -15,6 +15,8 @@ const invoiceId = v4()
 
 export default function AddPurchaseInvoice() {
     const router = useRouter()
+    const ref = useRef(v4())
+    const invoiceId = ref.current
 
     const [number, setNumber] = useState("")
     const [date, setDate] = useState(dayjs())
@@ -59,11 +61,11 @@ export default function AddPurchaseInvoice() {
             PartnerId: partnerId,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-purchase-invoice?${data}`, {
+        fetch(`${process.env.API_URL}purchase-invoices?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-purchases-positions?${positions}`, {
+                fetch(`${process.env.API_URL}purchases-positions?${positions}`, {
                     method: "post",
                 })
             })

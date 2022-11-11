@@ -19,8 +19,8 @@ export default function SalesPlan() {
     const router = useRouter()
     const { id } = router.query
 
-    const plan = useData(id ? `${process.env.API_URL}sales-plan/${id}` : null)
-    const positions = useData(id ? `${process.env.API_URL}sales-plan/${id}/positions` : null)
+    const plan = useData(id ? `${process.env.API_URL}sales-plans/${id}` : null)
+    const positions = useData(id ? `${process.env.API_URL}sales-plans/${id}/positions` : null)
 
     if (plan.isLoading) {
         return

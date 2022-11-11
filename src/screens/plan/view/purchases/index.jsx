@@ -16,15 +16,14 @@ import {
 
 import { useData } from "@hooks"
 import { month, monthDTO } from "@utils/enums"
-import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum, getNameDivision } from "@utils/helpers"
 
 export default function PurchasesPlan() {
     const router = useRouter()
     const { id } = router.query
 
-    const plan = useData(id ? `${process.env.API_URL}purchases-plan/${id}` : null)
-    const positions = useData(id ? `${process.env.API_URL}purchases-plan/${id}/positions` : null)
+    const plan = useData(id ? `${process.env.API_URL}purchases-plans/${id}` : null)
+    const positions = useData(id ? `${process.env.API_URL}purchases-plans/${id}/positions` : null)
 
     if (plan.isLoading) {
         return
@@ -43,7 +42,7 @@ export default function PurchasesPlan() {
             <Box display="flex" alignItems="center" mb={3}>
                 <Typography variant="h5" sx={{ mr: 1 }}>
                     План закупок на {month[inverseEnum(monthDTO)[plan.data.month]]} месяц{" "}
-                    {plan.data.salesPlan.year} года.
+                    {plan.data.planSales.year} года.
                 </Typography>
             </Box>
 

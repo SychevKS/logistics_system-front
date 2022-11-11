@@ -45,7 +45,7 @@ export default function AddPurchasesPlan() {
         const data = new URLSearchParams({
             Id: planId,
             Month: monthValue,
-            SalesPlanId: id,
+            PlanSalesId: id,
         }).toString()
 
         const positions = rows.reduce(
@@ -55,7 +55,7 @@ export default function AddPurchasesPlan() {
                         prev +
                         `positions[${index}].Id=${current.key}&` +
                         `positions[${index}].ProductId=${current.id}&` +
-                        `positions[${index}].PurchasesPlanId=${planId}&` +
+                        `positions[${index}].PlanPurchasesId=${planId}&` +
                         `positions[${index}].Quantity=${current.quantity}&` +
                         `positions[${index}].DivisionId=${current.division?.id}&`
                     )
@@ -64,17 +64,17 @@ export default function AddPurchasesPlan() {
             },
             [""]
         )
-        fetch(`${process.env.API_URL}add-purchases-plan?${data}`, {
+        fetch(`${process.env.API_URL}purchases-plans?${data}`, {
             method: "post",
         })
             .then(() => {
-                fetch(`${process.env.API_URL}add-purchases-plan-positions?${positions}`, {
+                fetch(`${process.env.API_URL}purchases-plan-positions?${positions}`, {
                     method: "post",
                 })
             })
             .then(() => router.push("/plans"))
     }
-    console.log(rows)
+
     if (nomenclature.isLoading || divisions.isLoading) {
         return
     }
