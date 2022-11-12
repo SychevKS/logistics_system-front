@@ -10,7 +10,7 @@ export default function UpdateProduct() {
     const router = useRouter()
     const { id } = router.query
 
-    const product = useData(id ? `${process.env.API_URL}product/${id}` : null)
+    const product = useData(id ? `${process.env.API_URL}products/${id}` : null)
     const units = useData(`${process.env.API_URL}units`)
 
     const [name, setName] = useState("")
@@ -33,8 +33,8 @@ export default function UpdateProduct() {
             Price: `${price}`,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-product?${data}`, {
-            method: "post",
+        fetch(`${process.env.API_URL}products?${data}`, {
+            method: "put",
         }).then(() => router.push("/products"))
     }
 

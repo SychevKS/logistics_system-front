@@ -24,7 +24,7 @@ export default function AddProduct() {
             Price: price,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-product?${data}`, {
+        fetch(`${process.env.API_URL}products?${data}`, {
             method: "post",
         }).then(() => router.push("/products"))
     }

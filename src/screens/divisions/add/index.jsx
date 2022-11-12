@@ -20,7 +20,7 @@ export default function AddDivision() {
             Kind: kind,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-division?${data}`, {
+        fetch(`${process.env.API_URL}divisions?${data}`, {
             method: "post",
         }).then(() => router.push("/divisions"))
     }

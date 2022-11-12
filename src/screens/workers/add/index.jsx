@@ -21,7 +21,7 @@ export default function AddWorker() {
             BirthDate: birthDate,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-worker?${data}`, {
+        fetch(`${process.env.API_URL}workers?${data}`, {
             method: "post",
         }).then(() => router.push("/workers"))
     }

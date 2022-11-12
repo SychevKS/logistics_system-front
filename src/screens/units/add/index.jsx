@@ -15,7 +15,7 @@ export default function AddUnit() {
             Name: name,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-unit?${data}`, {
+        fetch(`${process.env.API_URL}units?${data}`, {
             method: "post",
         }).then(() => router.push("/units"))
     }

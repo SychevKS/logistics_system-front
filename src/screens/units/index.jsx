@@ -15,7 +15,9 @@ import {
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 
-export default function Units({ units }) {
+export default function Units() {
+    const { data } = useData(`${process.env.API_URL}units`)
+
     return (
         <Container
             maxWidth="md"
@@ -36,18 +38,19 @@ export default function Units({ units }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {units.map(unit => (
-                            <TableRow key={unit.id}>
-                                <TableCell>{unit.name}</TableCell>
-                                <TableCell>
-                                    <Link href={`update-unit/${unit.id}`} passHref>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {data &&
+                            data.map(unit => (
+                                <TableRow key={unit.id}>
+                                    <TableCell>{unit.name}</TableCell>
+                                    <TableCell>
+                                        <Link href={`update-unit/${unit.id}`} passHref>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>

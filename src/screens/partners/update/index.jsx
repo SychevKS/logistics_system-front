@@ -11,7 +11,7 @@ export default function UpdatePartner() {
     const router = useRouter()
     const { id } = router.query
 
-    const partner = useData(id ? `${process.env.API_URL}partner/${id}` : null)
+    const partner = useData(id ? `${process.env.API_URL}partners/${id}` : null)
 
     const [name, setName] = useState("")
     const [kind, setKind] = useState(0)
@@ -30,8 +30,8 @@ export default function UpdatePartner() {
             Kind: kind,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-partner?${data}`, {
-            method: "post",
+        fetch(`${process.env.API_URL}partners?${data}`, {
+            method: "put",
         }).then(() => router.push("/partners"))
     }
 

@@ -10,7 +10,7 @@ export default function UpdateWorker() {
     const router = useRouter()
     const { id } = router.query
 
-    const worker = useData(id ? `${process.env.API_URL}worker/${id}` : null)
+    const worker = useData(id ? `${process.env.API_URL}workers/${id}` : null)
 
     const [surname, setSurname] = useState("")
     const [name, setName] = useState("")
@@ -32,8 +32,8 @@ export default function UpdateWorker() {
             BirthDate: `${birthDate}`,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-worker?${data}`, {
-            method: "post",
+        fetch(`${process.env.API_URL}workers?${data}`, {
+            method: "put",
         }).then(() => router.push("/workers"))
     }
 

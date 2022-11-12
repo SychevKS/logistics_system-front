@@ -15,7 +15,9 @@ import {
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 
-export default function Products({ products }) {
+export default function Products() {
+    const { data } = useData(`${process.env.API_URL}products`)
+
     return (
         <Container
             maxWidth="md"
@@ -38,20 +40,21 @@ export default function Products({ products }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products.map(product => (
-                            <TableRow key={product.id}>
-                                <TableCell>{product.name}</TableCell>
-                                <TableCell>{product.unit.name}</TableCell>
-                                <TableCell>{product.price}</TableCell>
-                                <TableCell>
-                                    <Link href={`update-product/${product.id}`} passHref>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {data &&
+                            data.map(product => (
+                                <TableRow key={product.id}>
+                                    <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.unit.name}</TableCell>
+                                    <TableCell>{product.price}</TableCell>
+                                    <TableCell>
+                                        <Link href={`update-product/${product.id}`} passHref>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>

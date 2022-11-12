@@ -20,7 +20,7 @@ export default function AddPartner() {
             Kind: kind,
         }).toString()
 
-        fetch(`${process.env.API_URL}add-partner?${data}`, {
+        fetch(`${process.env.API_URL}partners?${data}`, {
             method: "post",
         }).then(() => router.push("/partners"))
     }

@@ -9,7 +9,7 @@ export default function UpdateUnit() {
     const router = useRouter()
     const { id } = router.query
 
-    const unit = useData(id ? `${process.env.API_URL}unit/${id}` : null)
+    const unit = useData(id ? `${process.env.API_URL}units/${id}` : null)
 
     const [name, setName] = useState("")
 
@@ -25,8 +25,8 @@ export default function UpdateUnit() {
             Name: `${name}`,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-unit?${data}`, {
-            method: "post",
+        fetch(`${process.env.API_URL}units?${data}`, {
+            method: "put",
         }).then(() => router.push("/units"))
     }
 

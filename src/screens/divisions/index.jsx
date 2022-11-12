@@ -17,8 +17,11 @@ import EditIcon from "@mui/icons-material/Edit"
 
 import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
+import { useData } from "@hooks"
 
-export default function Divisions({ divisions }) {
+export default function Divisions() {
+    const { data } = useData(`${process.env.API_URL}divisions`)
+
     return (
         <Container
             maxWidth="md"
@@ -39,23 +42,25 @@ export default function Divisions({ divisions }) {
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {divisions.map(division => (
-                            <TableRow key={division.id}>
-                                <TableCell>
-                                    {divisionKind[inverseEnum(divisionKindDTO)[division.kind]]}
-                                </TableCell>
-                                <TableCell>{division.number}</TableCell>
-                                <TableCell>
-                                    <Link href={`update-division/${division.id}`} passHref>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                    {data && (
+                        <TableBody>
+                            {data.map(division => (
+                                <TableRow key={division.id}>
+                                    <TableCell>
+                                        {divisionKind[inverseEnum(divisionKindDTO)[division.kind]]}
+                                    </TableCell>
+                                    <TableCell>{division.number}</TableCell>
+                                    <TableCell>
+                                        <Link href={`update-division/${division.id}`} passHref>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    )}
                 </Table>
             </TableContainer>
             <Link href={`/add-division`} passHref>

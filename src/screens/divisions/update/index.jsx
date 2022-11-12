@@ -11,7 +11,7 @@ export default function UpdateDivision() {
     const router = useRouter()
     const { id } = router.query
 
-    const division = useData(id ? `${process.env.API_URL}division/${id}` : null)
+    const division = useData(id ? `${process.env.API_URL}divisions/${id}` : null)
 
     const [number, setNumber] = useState(0)
     const [kind, setKind] = useState(0)
@@ -30,8 +30,8 @@ export default function UpdateDivision() {
             Kind: kind,
         }).toString()
 
-        fetch(`${process.env.API_URL}update-division?${data}`, {
-            method: "post",
+        fetch(`${process.env.API_URL}divisions?${data}`, {
+            method: "put",
         }).then(() => router.push("/divisions"))
     }
 
