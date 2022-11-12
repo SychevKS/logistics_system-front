@@ -17,6 +17,7 @@ export default function AddUnit() {
 
         fetch(`${process.env.API_URL}units?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/units"))
     }
 

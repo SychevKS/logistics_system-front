@@ -63,10 +63,12 @@ export default function AddPurchaseInvoice() {
 
         fetch(`${process.env.API_URL}purchase-invoices?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
                 fetch(`${process.env.API_URL}purchases-positions?${positions}`, {
                     method: "post",
+                    headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
             })
             .then(() => router.push("/invoices-purchase"))

@@ -68,10 +68,12 @@ export default function AddTransferInvoice() {
 
         fetch(`${process.env.API_URL}transfer-invoices?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
                 fetch(`${process.env.API_URL}transfers-positions?${positions}`, {
                     method: "post",
+                    headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
             })
             .then(() => router.push("/invoices-transfer"))

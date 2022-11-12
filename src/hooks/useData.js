@@ -1,11 +1,13 @@
 import useSWR from "swr"
 import https from "https"
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 const agent = new https.Agent({ rejectUnauthorized: false })
 
-export default function useData(url, options) {
-    const { data, error } = useSWR(url, fetcher, { agent, ...options })
+const fetcher = (url, token) =>
+    fetch(url, { headers: { Authorization: "Bearer " + token } }).then(res => res.json())
+
+export default function useData(url) {
+    const { data, error } = useSWR([url, sessionStorage.getItem("token")], fetcher)
 
     return {
         data,

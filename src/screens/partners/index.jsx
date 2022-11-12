@@ -18,7 +18,8 @@ import EditIcon from "@mui/icons-material/Edit"
 import { partnerKind, partnerKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
-export default function Partners({ partners }) {
+export default function Partners() {
+    const { data } = useData(`${process.env.API_URL}partners`)
     return (
         <Container
             maxWidth="md"
@@ -40,21 +41,22 @@ export default function Partners({ partners }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {partners.map(partner => (
-                            <TableRow key={partner.id}>
-                                <TableCell>{partner.name}</TableCell>
-                                <TableCell>
-                                    {partnerKind[inverseEnum(partnerKindDTO)[partner.kind]]}
-                                </TableCell>
-                                <TableCell>
-                                    <Link href={`update-partner/${partner.id}`} passHref>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {data &&
+                            data.map(partner => (
+                                <TableRow key={partner.id}>
+                                    <TableCell>{partner.name}</TableCell>
+                                    <TableCell>
+                                        {partnerKind[inverseEnum(partnerKindDTO)[partner.kind]]}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Link href={`update-partner/${partner.id}`} passHref>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>

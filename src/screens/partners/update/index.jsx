@@ -32,6 +32,7 @@ export default function UpdatePartner() {
 
         fetch(`${process.env.API_URL}partners?${data}`, {
             method: "put",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/partners"))
     }
 

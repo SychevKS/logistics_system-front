@@ -34,6 +34,7 @@ export default function UpdateWorker() {
 
         fetch(`${process.env.API_URL}workers?${data}`, {
             method: "put",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/workers"))
     }
 

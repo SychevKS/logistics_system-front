@@ -26,6 +26,7 @@ export default function AddProduct() {
 
         fetch(`${process.env.API_URL}products?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/products"))
     }
 

@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Router from "next/router"
 
 import {
     TableHead,
@@ -10,12 +11,25 @@ import {
     TableContainer,
     Paper,
     Button,
+    IconButton,
 } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 import { divisionKind, divisionKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
 export default function List({ invoices, columns, url }) {
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            invoiceId: id,
+        }).toString()
+
+        fetch(`${process.env.API_URL}invoices?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
+    }
+
     return (
         <TableContainer component={Paper} sx={{ flexGrow: 1, height: 0 }}>
             <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
@@ -27,6 +41,7 @@ export default function List({ invoices, columns, url }) {
                         {columns.map((item, index) => (
                             <TableCell key={index}>{item}</TableCell>
                         ))}
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -71,6 +86,14 @@ export default function List({ invoices, columns, url }) {
                                         invoice.inDivision.number}
                                 </TableCell>
                             )}
+                            <TableCell>
+                                <IconButton
+                                    aria-label="delete"
+                                    onClick={() => onSendRemove(invoice.invoiceId)}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

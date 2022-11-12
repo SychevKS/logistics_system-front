@@ -63,10 +63,12 @@ export default function AddSaleInvoice() {
 
         fetch(`${process.env.API_URL}sale-invoices?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
                 fetch(`${process.env.API_URL}sales-positions?${positions}`, {
                     method: "post",
+                    headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
             })
             .then(() => router.push("/invoices-sale"))

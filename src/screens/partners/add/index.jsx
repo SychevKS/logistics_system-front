@@ -22,6 +22,7 @@ export default function AddPartner() {
 
         fetch(`${process.env.API_URL}partners?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/partners"))
     }
 

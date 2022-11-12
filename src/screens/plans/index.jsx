@@ -21,7 +21,9 @@ import { useData } from "@hooks"
 import { month, monthDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
-export default function Plans({ salesPlans }) {
+export default function Plans() {
+    const { data } = useData(`${process.env.API_URL}sales-plans`)
+
     return (
         <Container
             maxWidth="md"
@@ -43,9 +45,7 @@ export default function Plans({ salesPlans }) {
             >
                 <Table>
                     <TableBody>
-                        {salesPlans.map(salesPlan => (
-                            <Row key={salesPlan.id} row={salesPlan} />
-                        ))}
+                        {data && data.map(salesPlan => <Row key={salesPlan.id} row={salesPlan} />)}
                     </TableBody>
                 </Table>
             </TableContainer>
