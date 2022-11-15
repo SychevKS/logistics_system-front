@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Router from "next/router"
 
 import {
     Container,
@@ -14,9 +15,23 @@ import {
     IconButton,
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+
+import { useData } from "@hooks"
 
 export default function Units() {
     const { data } = useData(`${process.env.API_URL}units`)
+
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            unitId: id,
+        }).toString()
+
+        fetch(`${process.env.API_URL}units?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
+    }
 
     return (
         <Container
@@ -35,6 +50,7 @@ export default function Units() {
                         <TableRow>
                             <TableCell>Наименование</TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -48,6 +64,14 @@ export default function Units() {
                                                 <EditIcon />
                                             </IconButton>
                                         </Link>
+                                    </TableCell>
+                                    <TableCell>
+                                        <IconButton
+                                            aria-label="delete"
+                                            onClick={() => onSendRemove(unit.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}

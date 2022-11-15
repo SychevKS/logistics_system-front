@@ -15,7 +15,7 @@ export default function UpdateWorker() {
     const [surname, setSurname] = useState("")
     const [name, setName] = useState("")
     const [birthDate, setBirthDate] = useState(0)
-
+    console.log(worker)
     useEffect(() => {
         if (worker.data) {
             setSurname(worker.data.surname)

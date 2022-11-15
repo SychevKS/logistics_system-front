@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Router from "next/router"
 
 import {
     Container,
@@ -14,12 +15,26 @@ import {
     IconButton,
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 import { partnerKind, partnerKindDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
+import { useData } from "@hooks"
 
 export default function Partners() {
     const { data } = useData(`${process.env.API_URL}partners`)
+
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            partnerId: id,
+        }).toString()
+
+        fetch(`${process.env.API_URL}partners?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
+    }
+
     return (
         <Container
             maxWidth="md"
@@ -38,6 +53,7 @@ export default function Partners() {
                             <TableCell>Наименование</TableCell>
                             <TableCell>Тип</TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -54,6 +70,14 @@ export default function Partners() {
                                                 <EditIcon />
                                             </IconButton>
                                         </Link>
+                                    </TableCell>
+                                    <TableCell>
+                                        <IconButton
+                                            aria-label="delete"
+                                            onClick={() => onSendRemove(partner.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}

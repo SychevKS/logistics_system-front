@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Router from "next/router"
 
 import {
     Container,
@@ -14,9 +15,23 @@ import {
     IconButton,
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+
+import { useData } from "@hooks"
 
 export default function Products() {
     const { data } = useData(`${process.env.API_URL}products`)
+
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            productId: id,
+        }).toString()
+
+        fetch(`${process.env.API_URL}products?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
+    }
 
     return (
         <Container
@@ -37,6 +52,7 @@ export default function Products() {
                             <TableCell>Еденица измерения</TableCell>
                             <TableCell>Цена</TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -52,6 +68,14 @@ export default function Products() {
                                                 <EditIcon />
                                             </IconButton>
                                         </Link>
+                                    </TableCell>
+                                    <TableCell>
+                                        <IconButton
+                                            aria-label="delete"
+                                            onClick={() => onSendRemove(product.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
