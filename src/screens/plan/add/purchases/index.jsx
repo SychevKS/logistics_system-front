@@ -36,7 +36,7 @@ export default function AddPurchasesPlan() {
     const { id } = router.query
 
     const { rows, removeRow, onChangeSelect, onChangeInput } = useRows(initialRow)
-    const [monthValue, setMonthValue] = React.useState(0)
+    const [monthValue, setMonthValue] = React.useState(new Date().getMonth())
 
     const nomenclature = useData(`${process.env.API_URL}products`)
     const divisions = useData(`${process.env.API_URL}divisions`)
@@ -66,10 +66,12 @@ export default function AddPurchasesPlan() {
         )
         fetch(`${process.env.API_URL}purchases-plans?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
                 fetch(`${process.env.API_URL}purchases-plan-positions?${positions}`, {
                     method: "post",
+                    headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
             })
             .then(() => router.push("/plans"))

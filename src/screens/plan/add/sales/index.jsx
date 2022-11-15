@@ -34,7 +34,7 @@ export default function AddSalesPlan() {
     const planId = v4()
 
     const { rows, removeRow, onChangeSelect, onChangeInput } = useRows(initialRow)
-    const [year, setYear] = React.useState("")
+    const [year, setYear] = React.useState(new Date().getFullYear())
 
     const nomenclature = useData(`${process.env.API_URL}products`)
 
@@ -62,10 +62,12 @@ export default function AddSalesPlan() {
 
         fetch(`${process.env.API_URL}sales-plans?${data}`, {
             method: "post",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
                 fetch(`${process.env.API_URL}sales-plans-positions?${positions}`, {
                     method: "post",
+                    headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
             })
             .then(() => router.push("/plans"))

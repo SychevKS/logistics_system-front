@@ -55,7 +55,7 @@ export default function SalesPlan() {
                                 <TableCell align="left">Наименование</TableCell>
                                 <TableCell align="left">Ед. измерения</TableCell>
                                 <TableCell align="left">Цель, кол.</TableCell>
-                                <TableCell align="left">Выполнение</TableCell>
+                                <TableCell align="left">Выполнение, %</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -68,7 +68,6 @@ export default function SalesPlan() {
                                         {((position.realization * 100) / position.purpose).toFixed(
                                             1
                                         )}
-                                        %
                                     </TableCell>
                                 </TableRow>
                             ))}

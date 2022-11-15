@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Router from "next/router"
 
 import {
     Container,
@@ -16,13 +17,23 @@ import {
 } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useData } from "@hooks"
 import { month, monthDTO } from "@utils/enums"
 import { inverseEnum } from "@utils/helpers"
 
 export default function Plans() {
-    const { data } = useData(`${process.env.API_URL}sales-plans`)
+    const [planSalesId, setPlanSalesId] = React.useState(null)
+
+    const salesPlans = useData(`${process.env.API_URL}sales-plans`)
+    const purchasesPlans = useData(
+        planSalesId ? `${process.env.API_URL}sales-plan/${planSalesId}/purchases-plans` : null
+    )
+
+    const onClick = id => () => {
+        setPlanSalesId(prev => (!prev ? id : null))
+    }
 
     return (
         <Container
@@ -45,7 +56,20 @@ export default function Plans() {
             >
                 <Table>
                     <TableBody>
-                        {data && data.map(salesPlan => <Row key={salesPlan.id} row={salesPlan} />)}
+                        {salesPlans.data &&
+                            salesPlans.data.map(salesPlan => (
+                                <React.Fragment key={salesPlan.id}>
+                                    <RowPlanSale
+                                        planSalesId={planSalesId}
+                                        plan={salesPlan}
+                                        onClick={onClick}
+                                    />
+                                    <RowPlanPurchases
+                                        planSalesId={planSalesId}
+                                        plans={purchasesPlans.data}
+                                    />
+                                </React.Fragment>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -58,90 +82,103 @@ export default function Plans() {
     )
 }
 
-function Row({ row }) {
-    const [idSalePlan, setIdSalePlan] = React.useState(null)
-    const purchasePlans = useData(
-        idSalePlan ? `${process.env.API_URL}sales-plan/${idSalePlan}/purchases-plans` : null
-    )
+function RowPlanSale({ planSalesId, plan, onClick }) {
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            planId: id,
+        }).toString()
 
-    const onClick = id => () => {
-        setIdSalePlan(prev => (!prev ? id : null))
+        fetch(`${process.env.API_URL}sales-plans?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
+    }
+    return (
+        <TableRow
+            sx={{
+                "th": { borderBottom: 0 },
+                "& > *": { borderBottom: "unset" },
+            }}
+        >
+            <TableCell sx={{ width: 66, borderBottom: 0 }}>
+                <IconButton aria-label="expand row" size="small" onClick={onClick(plan.id)}>
+                    {planSalesId ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </IconButton>
+            </TableCell>
+            <TableCell sx={{ borderBottom: 0 }}>
+                <Link href={`plan-sales/${plan.id}`} passHref>
+                    <Button
+                        color="inherit"
+                        variant="text"
+                        sx={{ textTransform: "none", fontWeight: "bold" }}
+                    >
+                        План продаж на {plan.year} г.
+                    </Button>
+                </Link>
+            </TableCell>
+            <TableCell component="th" scope="row">
+                <IconButton aria-label="delete" onClick={() => onSendRemove(plan.id)}>
+                    <DeleteIcon />
+                </IconButton>
+            </TableCell>
+        </TableRow>
+    )
+}
+
+function RowPlanPurchases({ planSalesId, plans }) {
+    const onSendRemove = id => {
+        const data = new URLSearchParams({
+            planId: id,
+        }).toString()
+
+        fetch(`${process.env.API_URL}purchases-plans?${data}`, {
+            method: "delete",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        }).then(() => Router.reload())
     }
 
     return (
-        <>
-            <TableRow
-                sx={{
-                    "th": { borderBottom: 0 },
-                    "& > *": { borderBottom: "unset" },
-                }}
-            >
-                <TableCell sx={{ width: 66, borderBottom: 0 }}>
-                    <IconButton aria-label="expand row" size="small" onClick={onClick(row.id)}>
-                        {idSalePlan ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
-                </TableCell>
-                <TableCell sx={{ borderBottom: 0 }}>
-                    <Link href={`plan-sales/${row.id}`} passHref>
-                        <Button
-                            color="inherit"
-                            variant="text"
-                            sx={{ textTransform: "none", fontWeight: "bold" }}
-                        >
-                            План продаж на {row.year} г.
-                        </Button>
-                    </Link>
-                </TableCell>
-            </TableRow>
-
-            <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={Boolean(purchasePlans.data)} timeout="auto" unmountOnExit>
-                        <Box sx={{ mb: 2, mx: 15 }}>
-                            <Table size="small" aria-label="purchases">
-                                {purchasePlans.data && (
-                                    <TableBody>
-                                        {purchasePlans.data.map(plan => (
-                                            <TableRow key={plan.id}>
-                                                <TableCell component="th" scope="row">
-                                                    <Link
-                                                        href={`plan-purchases/${plan.id}`}
-                                                        passHref
+        <TableRow>
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <Collapse in={Boolean(plans)} timeout="auto" unmountOnExit>
+                    <Box sx={{ mb: 2, mx: 15 }}>
+                        <Table size="small" aria-label="purchases">
+                            <TableBody>
+                                {plans &&
+                                    plans.map(plan => (
+                                        <TableRow key={plan.id}>
+                                            <TableCell component="th" scope="row">
+                                                <Link href={`plan-purchases/${plan.id}`} passHref>
+                                                    <Button
+                                                        color="inherit"
+                                                        variant="text"
+                                                        sx={{ textTransform: "none" }}
                                                     >
-                                                        <Button
-                                                            color="inherit"
-                                                            variant="text"
-                                                            sx={{ textTransform: "none" }}
-                                                        >
-                                                            План закупок на{" "}
-                                                            {
-                                                                month[
-                                                                    inverseEnum(monthDTO)[
-                                                                        plan.month
-                                                                    ]
-                                                                ]
-                                                            }
-                                                        </Button>
-                                                    </Link>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                )}
-                            </Table>
-                            <Link href={`/add-plan-purchases/${idSalePlan}`} passHref>
-                                <Button
-                                    sx={{ my: 2, width: "100%" }}
-                                    variant="contained"
-                                    size="small"
-                                >
-                                    Добавить план закупок
-                                </Button>
-                            </Link>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </>
+                                                        План закупок на{" "}
+                                                        {month[inverseEnum(monthDTO)[plan.month]]}
+                                                    </Button>
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row">
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    onClick={() => onSendRemove(plan.id)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
+                        </Table>
+                        <Link href={`/add-plan-purchases/${planSalesId}`} passHref>
+                            <Button sx={{ my: 2, width: "100%" }} variant="contained" size="small">
+                                Добавить план закупок
+                            </Button>
+                        </Link>
+                    </Box>
+                </Collapse>
+            </TableCell>
+        </TableRow>
     )
 }

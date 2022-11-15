@@ -25,7 +25,7 @@ export default function PurchasesPlan() {
     const plan = useData(id ? `${process.env.API_URL}purchases-plans/${id}` : null)
     const positions = useData(id ? `${process.env.API_URL}purchases-plans/${id}/positions` : null)
 
-    if (plan.isLoading) {
+    if (plan.isLoading || positions.isLoading) {
         return
     }
     return (
@@ -62,7 +62,7 @@ export default function PurchasesPlan() {
                                 <TableCell align="left">Наименование</TableCell>
                                 <TableCell align="left">Ед. измерения</TableCell>
                                 <TableCell align="left">Цель, кол.</TableCell>
-                                <TableCell align="left">Выполнение</TableCell>
+                                <TableCell align="left">Выполнение, %</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -76,7 +76,6 @@ export default function PurchasesPlan() {
                                         {((position.realization * 100) / position.purpose).toFixed(
                                             1
                                         )}
-                                        %
                                     </TableCell>
                                 </TableRow>
                             ))}
