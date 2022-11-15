@@ -28,7 +28,9 @@ export default function TransferInvoice() {
             }}
         >
             <Title
-                title={`Акт приема-передачи номер ${data.number} от ${data.date}`}
+                title={`Акт приема-передачи номер ${data.number} от ${dayjs(data.date).format(
+                    "DD.MM.YYYY HH:mm"
+                )}`}
                 worker={data.worker.surname + " " + data.worker.name}
                 subtitles={[
                     `Подразделение отправитель: ${

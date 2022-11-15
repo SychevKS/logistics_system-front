@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import Router from "next/router"
+import dayjs from "dayjs"
 
 import {
     Container,
@@ -61,7 +62,9 @@ export default function Workers() {
                                 <TableRow key={worker.id}>
                                     <TableCell>{worker.surname}</TableCell>
                                     <TableCell>{worker.name}</TableCell>
-                                    <TableCell>{worker.birthDate}</TableCell>
+                                    <TableCell>
+                                        {dayjs(worker.birthDate).format("DD.MM.YYYY")}
+                                    </TableCell>
                                     <TableCell>
                                         <Link href={`update-worker/${worker.id}`} passHref>
                                             <IconButton>

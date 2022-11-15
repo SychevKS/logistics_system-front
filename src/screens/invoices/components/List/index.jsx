@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import Router from "next/router"
+import dayjs from "dayjs"
 
 import {
     TableHead,
@@ -47,7 +48,7 @@ export default function List({ invoices, columns, url }) {
                 <TableBody>
                     {invoices.map(invoice => (
                         <TableRow key={invoice.invoiceId}>
-                            <TableCell>{invoice.date}</TableCell>
+                            <TableCell>{dayjs(invoice.date).format("DD.MM.YYYY HH:mm")}</TableCell>
                             <TableCell>
                                 <Link href={url + invoice.invoiceId} passHref>
                                     <Button size="small" variant="text">
