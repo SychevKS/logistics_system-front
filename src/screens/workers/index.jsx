@@ -19,6 +19,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useData } from "@hooks"
+import { checkRoleUser } from "@utils/helpers"
 
 export default function Workers() {
     const { data } = useData(`${process.env.API_URL}workers`)
@@ -52,8 +53,12 @@ export default function Workers() {
                             <TableCell>Фамилия</TableCell>
                             <TableCell>Имя</TableCell>
                             <TableCell>Дата рождения</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            {checkRoleUser(["Admin"]) && (
+                                <>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -65,31 +70,37 @@ export default function Workers() {
                                     <TableCell>
                                         {dayjs(worker.birthDate).format("DD.MM.YYYY")}
                                     </TableCell>
-                                    <TableCell>
-                                        <Link href={`update-worker/${worker.id}`} passHref>
-                                            <IconButton>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            aria-label="delete"
-                                            onClick={() => onSendRemove(worker.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                    {checkRoleUser(["Admin"]) && (
+                                        <>
+                                            <TableCell>
+                                                <Link href={`update-worker/${worker.id}`} passHref>
+                                                    <IconButton>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    onClick={() => onSendRemove(worker.id)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href={`/add-worker`} passHref>
-                <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                    Добавить сотрудника
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href={`/add-worker`} passHref>
+                    <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                        Добавить сотрудника
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }

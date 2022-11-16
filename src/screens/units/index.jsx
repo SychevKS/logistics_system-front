@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useData } from "@hooks"
+import { checkRoleUser } from "@utils/helpers"
 
 export default function Units() {
     const { data } = useData(`${process.env.API_URL}units`)
@@ -49,8 +50,12 @@ export default function Units() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Наименование</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            {checkRoleUser(["Admin"]) && (
+                                <>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -58,31 +63,37 @@ export default function Units() {
                             data.map(unit => (
                                 <TableRow key={unit.id}>
                                     <TableCell>{unit.name}</TableCell>
-                                    <TableCell>
-                                        <Link href={`update-unit/${unit.id}`} passHref>
-                                            <IconButton>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            aria-label="delete"
-                                            onClick={() => onSendRemove(unit.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                    {checkRoleUser(["Admin"]) && (
+                                        <>
+                                            <TableCell>
+                                                <Link href={`update-unit/${unit.id}`} passHref>
+                                                    <IconButton>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    onClick={() => onSendRemove(unit.id)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href={`/add-unit`} passHref>
-                <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                    Добавить еденицу измерения
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href={`/add-unit`} passHref>
+                    <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                        Добавить еденицу измерения
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }

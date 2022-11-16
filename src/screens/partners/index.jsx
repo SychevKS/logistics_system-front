@@ -18,7 +18,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 import { partnerKind, partnerKindDTO } from "@utils/enums"
-import { inverseEnum } from "@utils/helpers"
+import { inverseEnum, checkRoleUser } from "@utils/helpers"
 import { useData } from "@hooks"
 
 export default function Partners() {
@@ -52,8 +52,12 @@ export default function Partners() {
                         <TableRow>
                             <TableCell>Наименование</TableCell>
                             <TableCell>Тип</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            {checkRoleUser(["Admin"]) && (
+                                <>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -64,31 +68,40 @@ export default function Partners() {
                                     <TableCell>
                                         {partnerKind[inverseEnum(partnerKindDTO)[partner.kind]]}
                                     </TableCell>
-                                    <TableCell>
-                                        <Link href={`update-partner/${partner.id}`} passHref>
-                                            <IconButton>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            aria-label="delete"
-                                            onClick={() => onSendRemove(partner.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                    {checkRoleUser(["Admin"]) && (
+                                        <>
+                                            <TableCell>
+                                                <Link
+                                                    href={`update-partner/${partner.id}`}
+                                                    passHref
+                                                >
+                                                    <IconButton>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    onClick={() => onSendRemove(partner.id)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href={"/add-partner"} passHref>
-                <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                    Добавить партнера
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href={"/add-partner"} passHref>
+                    <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                        Добавить партнера
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }

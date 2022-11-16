@@ -1,12 +1,14 @@
 import React from "react"
 import Link from "next/link"
 
-import { Box, Container, Paper, Typography, Button, Link as ALink } from "@mui/material"
+import { Box, Container, Paper, Typography, Link as ALink } from "@mui/material"
+
+import { checkRoleUser } from "@utils/helpers"
 
 export default function Home() {
     return (
         <Container
-            maxWidth="md"
+            maxWidth="lg"
             sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -15,8 +17,8 @@ export default function Home() {
                 pb: 6,
             }}
         >
-            <Paper sx={{ mr: 5, p: 2, mb: 2 }}>
-                <Box sx={{ width: 300 }}>
+            <Paper sx={{ mr: 2, p: 2, mb: 2 }}>
+                <Box width={300}>
                     <Typography fontWeight={500}>Накладные</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <Link href="/invoices-purchase" passHref>
@@ -31,8 +33,8 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
-            <Paper sx={{ p: 2, mb: 2 }}>
-                <Box sx={{ width: 300 }}>
+            <Paper sx={{ mr: 2, p: 2, mb: 2 }}>
+                <Box width={300}>
                     <Typography fontWeight={500}>Планы</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <Link href="/plans" passHref>
@@ -41,8 +43,8 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
-            <Paper sx={{ mr: 5, p: 2, mb: 2 }}>
-                <Box sx={{ width: 300 }}>
+            <Paper sx={{ p: 2, mb: 2 }}>
+                <Box width={300}>
                     <Typography fontWeight={500}>Справочники</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <Link href="/workers" passHref>
@@ -63,8 +65,8 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
-            <Paper sx={{ p: 2, mb: 2 }}>
-                <Box sx={{ width: 300 }}>
+            <Paper sx={{ mr: 2, p: 2, mb: 2 }}>
+                <Box width={300} minHeight={150}>
                     <Typography fontWeight={500}>Подсчет</Typography>
                     <Box display="flex" flexDirection="column" mt={1}>
                         <Link href="/remainings" passHref>
@@ -73,6 +75,18 @@ export default function Home() {
                     </Box>
                 </Box>
             </Paper>
+            {checkRoleUser(["Admin"]) && (
+                <Paper sx={{ p: 2, mb: 2 }}>
+                    <Box width={300}>
+                        <Typography fontWeight={500}>Администрирование</Typography>
+                        <Box display="flex" flexDirection="column" mt={1}>
+                            <Link href="/logs" passHref>
+                                <ALink underline="hover">Аудит</ALink>
+                            </Link>
+                        </Box>
+                    </Box>
+                </Paper>
+            )}
         </Container>
     )
 }

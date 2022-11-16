@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useData } from "@hooks"
+import { checkRoleUser } from "@utils/helpers"
 
 export default function Products() {
     const { data } = useData(`${process.env.API_URL}products`)
@@ -51,8 +52,12 @@ export default function Products() {
                             <TableCell>Наименование</TableCell>
                             <TableCell>Еденица измерения</TableCell>
                             <TableCell>Цена</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            {checkRoleUser(["Admin"]) && (
+                                <>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -62,31 +67,40 @@ export default function Products() {
                                     <TableCell>{product.name}</TableCell>
                                     <TableCell>{product.unit.name}</TableCell>
                                     <TableCell>{product.price}</TableCell>
-                                    <TableCell>
-                                        <Link href={`update-product/${product.id}`} passHref>
-                                            <IconButton>
-                                                <EditIcon />
-                                            </IconButton>
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            aria-label="delete"
-                                            onClick={() => onSendRemove(product.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                    {checkRoleUser(["Admin"]) && (
+                                        <>
+                                            <TableCell>
+                                                <Link
+                                                    href={`update-product/${product.id}`}
+                                                    passHref
+                                                >
+                                                    <IconButton>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    onClick={() => onSendRemove(product.id)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href={`/add-product`} passHref>
-                <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                    Добавить продукт
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href={`/add-product`} passHref>
+                    <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                        Добавить продукт
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }

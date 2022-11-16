@@ -18,7 +18,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 import { divisionKind, divisionKindDTO } from "@utils/enums"
-import { inverseEnum } from "@utils/helpers"
+import { inverseEnum, checkRoleUser } from "@utils/helpers"
 import { useData } from "@hooks"
 
 export default function Divisions() {
@@ -52,8 +52,12 @@ export default function Divisions() {
                         <TableRow>
                             <TableCell>Тип</TableCell>
                             <TableCell>Номер</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            {checkRoleUser(["Admin"]) && (
+                                <>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </>
+                            )}
                         </TableRow>
                     </TableHead>
                     {data && (
@@ -64,32 +68,38 @@ export default function Divisions() {
                                         {divisionKind[inverseEnum(divisionKindDTO)[division.kind]]}
                                     </TableCell>
                                     <TableCell>{division.number}</TableCell>
-                                    <TableCell>
-                                        <Link href={`update-division/${division.id}`} passHref>
-                                            <IconButton>
-                                                <EditIcon />
+                                    {checkRoleUser(["Admin"]) && (
+                                        <TableCell>
+                                            <Link href={`update-division/${division.id}`} passHref>
+                                                <IconButton>
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Link>
+                                        </TableCell>
+                                    )}
+                                    {checkRoleUser(["Admin"]) && (
+                                        <TableCell>
+                                            <IconButton
+                                                aria-label="delete"
+                                                onClick={() => onSendRemove(division.id)}
+                                            >
+                                                <DeleteIcon />
                                             </IconButton>
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            aria-label="delete"
-                                            onClick={() => onSendRemove(division.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                        </TableCell>
+                                    )}
                                 </TableRow>
                             ))}
                         </TableBody>
                     )}
                 </Table>
             </TableContainer>
-            <Link href={`/add-division`} passHref>
-                <Button sx={{ width: 400, mt: 2 }} variant="contained">
-                    Добавить подразделение
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href={`/add-division`} passHref>
+                    <Button sx={{ width: 400, mt: 2 }} variant="contained">
+                        Добавить подразделение
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }

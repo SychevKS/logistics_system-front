@@ -23,7 +23,7 @@ export default function Auth() {
 
                 sessionStorage.setItem("token", token)
                 sessionStorage.setItem("name", name)
-                sessionStorage.setItem("role", JSON.stringify(roles))
+                sessionStorage.setItem("roles", JSON.stringify(roles))
             })
             .then(() => router.push("/"))
     }

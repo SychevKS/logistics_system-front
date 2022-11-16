@@ -40,6 +40,8 @@ import AddProduct from "./products/add"
 
 import Remainings from "./remainings"
 
+import Logs from "./logs"
+
 export {
     Home,
     PurchaseInvoices,
@@ -72,4 +74,5 @@ export {
     AddTransferInvoice,
     AddSalesPlan,
     AddPurchasesPlan,
+    Logs,
 }

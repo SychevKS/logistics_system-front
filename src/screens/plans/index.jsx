@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useData } from "@hooks"
 import { month, monthDTO } from "@utils/enums"
-import { inverseEnum } from "@utils/helpers"
+import { inverseEnum, checkRoleUser } from "@utils/helpers"
 
 export default function Plans() {
     const [planSalesId, setPlanSalesId] = React.useState(null)
@@ -73,11 +73,13 @@ export default function Plans() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link href="/add-plan-sales" passHref>
-                <Button sx={{ mt: 2 }} variant="contained">
-                    Добавить план продаж
-                </Button>
-            </Link>
+            {checkRoleUser(["Admin"]) && (
+                <Link href="/add-plan-sales" passHref>
+                    <Button sx={{ mt: 2 }} variant="contained">
+                        Добавить план продаж
+                    </Button>
+                </Link>
+            )}
         </Container>
     )
 }
@@ -116,11 +118,13 @@ function RowPlanSale({ planSalesId, plan, onClick }) {
                     </Button>
                 </Link>
             </TableCell>
-            <TableCell component="th" scope="row">
-                <IconButton aria-label="delete" onClick={() => onSendRemove(plan.id)}>
-                    <DeleteIcon />
-                </IconButton>
-            </TableCell>
+            {checkRoleUser(["Admin"]) && (
+                <TableCell component="th" scope="row">
+                    <IconButton aria-label="delete" onClick={() => onSendRemove(plan.id)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </TableCell>
+            )}
         </TableRow>
     )
 }
@@ -159,23 +163,31 @@ function RowPlanPurchases({ planSalesId, plans }) {
                                                     </Button>
                                                 </Link>
                                             </TableCell>
-                                            <TableCell component="th" scope="row">
-                                                <IconButton
-                                                    aria-label="delete"
-                                                    onClick={() => onSendRemove(plan.id)}
-                                                >
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </TableCell>
+                                            {checkRoleUser(["Admin"]) && (
+                                                <TableCell component="th" scope="row">
+                                                    <IconButton
+                                                        aria-label="delete"
+                                                        onClick={() => onSendRemove(plan.id)}
+                                                    >
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                </TableCell>
+                                            )}
                                         </TableRow>
                                     ))}
                             </TableBody>
                         </Table>
-                        <Link href={`/add-plan-purchases/${planSalesId}`} passHref>
-                            <Button sx={{ my: 2, width: "100%" }} variant="contained" size="small">
-                                Добавить план закупок
-                            </Button>
-                        </Link>
+                        {checkRoleUser(["Admin"]) && (
+                            <Link href={`/add-plan-purchases/${planSalesId}`} passHref>
+                                <Button
+                                    sx={{ my: 2, width: "100%" }}
+                                    variant="contained"
+                                    size="small"
+                                >
+                                    Добавить план закупок
+                                </Button>
+                            </Link>
+                        )}
                     </Box>
                 </Collapse>
             </TableCell>

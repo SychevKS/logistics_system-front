@@ -32,6 +32,7 @@ export default function UpdateDivision() {
 
         fetch(`${process.env.API_URL}divisions?${data}`, {
             method: "put",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         }).then(() => router.push("/divisions"))
     }
 
