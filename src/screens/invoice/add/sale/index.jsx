@@ -66,7 +66,7 @@ export default function AddSaleInvoice() {
             headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
-                fetch(`${process.env.API_URL}sales-positions?${positions}`, {
+                fetch(`${process.env.API_URL}invoice/positions?${positions}`, {
                     method: "post",
                     headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
@@ -117,6 +117,7 @@ export default function AddSaleInvoice() {
                     nomenclature={nomenclature.data}
                     setPositions={setPositions}
                     invoiceId={invoiceId}
+                    invoiceKind={1}
                 />
             )}
             <Footer workerId={workerId} setWorkerId={setWorkerId} onSend={onSend} />

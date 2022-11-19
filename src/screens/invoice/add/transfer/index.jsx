@@ -71,7 +71,7 @@ export default function AddTransferInvoice() {
             headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
         })
             .then(() => {
-                fetch(`${process.env.API_URL}transfers-positions?${positions}`, {
+                fetch(`${process.env.API_URL}invoice/positions?${positions}`, {
                     method: "post",
                     headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 })
@@ -122,6 +122,7 @@ export default function AddTransferInvoice() {
                     nomenclature={nomenclature.data}
                     setPositions={setPositions}
                     invoiceId={invoiceId}
+                    invoiceKind={2}
                 />
             )}
             <Footer workerId={workerId} setWorkerId={setWorkerId} onSend={onSend} />

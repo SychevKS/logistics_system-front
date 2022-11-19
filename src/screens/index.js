@@ -41,6 +41,7 @@ import AddProduct from "./products/add"
 import Remainings from "./remainings"
 
 import Logs from "./logs"
+import Statistics from "./statistics"
 
 export {
     Home,
@@ -75,4 +76,5 @@ export {
     AddSalesPlan,
     AddPurchasesPlan,
     Logs,
+    Statistics,
 }

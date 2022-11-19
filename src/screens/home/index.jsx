@@ -72,6 +72,9 @@ export default function Home() {
                         <Link href="/remainings" passHref>
                             <ALink underline="hover">Остатки товара</ALink>
                         </Link>
+                        <Link href="/statistics" passHref>
+                            <ALink underline="hover">Показатели</ALink>
+                        </Link>
                     </Box>
                 </Box>
             </Paper>

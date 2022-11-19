@@ -1,5 +1,6 @@
 import React from "react"
 import { useRouter } from "next/router"
+import dayjs from "dayjs"
 
 import { Container } from "@mui/material"
 
@@ -11,7 +12,7 @@ import { Title, Table } from "../components"
 export default function SaleInvoice() {
     const router = useRouter()
     const { id } = router.query
-    const { data, isLoading } = useData(id ? `${process.env.API_URL}sales-invoices/${id}` : null)
+    const { data, isLoading } = useData(id ? `${process.env.API_URL}sale-invoices/${id}` : null)
 
     if (isLoading) {
         return

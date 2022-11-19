@@ -16,7 +16,6 @@ import DeleteIcon from "@mui/icons-material/Delete"
 
 import { useRows } from "src/hooks"
 import { isObjectFilled } from "@utils/helpers"
-import { ContactSupport } from "@mui/icons-material"
 
 const initialRow = {
     name: undefined,
@@ -26,7 +25,7 @@ const initialRow = {
     costDelivery: null,
 }
 
-export default function Table({ nomenclature, setPositions, invoiceId }) {
+export default function Table({ nomenclature, setPositions, invoiceId, invoiceKind }) {
     const { rows, removeRow, onChangeSelect, onChangeInput } = useRows(initialRow)
 
     useEffect(() => {
@@ -40,7 +39,8 @@ export default function Table({ nomenclature, setPositions, invoiceId }) {
                         `positions[${index}].InvoiceId=${invoiceId}&` +
                         `positions[${index}].Price=${current.price}&` +
                         `positions[${index}].Quantity=${current.quantity}&` +
-                        `positions[${index}].CostDelivery=${current.costDelivery}&`
+                        `positions[${index}].CostDelivery=${current.costDelivery}&` +
+                        `positions[${index}].InvoiceKind=${invoiceKind}&`
                     )
                 }
                 return prev
@@ -98,7 +98,16 @@ export default function Table({ nomenclature, setPositions, invoiceId }) {
                                 />
                             </TableCell>
                             <TableCell>{row.unit.name}</TableCell>
-                            <TableCell>{row.price}</TableCell>
+                            <TableCell>
+                                <TextField
+                                    value={row.price}
+                                    type="number"
+                                    variant="standard"
+                                    onChange={onChangeInput(index, (value, row) => ({
+                                        price: value ? value : row.price,
+                                    }))}
+                                />
+                            </TableCell>
                             <TableCell>
                                 <TextField
                                     value={row.quantity}

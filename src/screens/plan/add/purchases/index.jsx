@@ -146,9 +146,7 @@ export default function AddPurchasesPlan() {
                                             />
                                         )}
                                         renderOption={(props, option) => {
-                                            if (!rows.some(row => row.division?.id == option.id)) {
-                                                return <li {...props}>{getNameDivision(option)}</li>
-                                            }
+                                            return <li {...props}>{getNameDivision(option)}</li>
                                         }}
                                     />
                                 </TableCell>
